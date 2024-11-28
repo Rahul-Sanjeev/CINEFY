@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 import "../styles/AddMovies.css";
 
 function AddMovies() {
@@ -10,12 +11,14 @@ function AddMovies() {
         casts: "",
         genre: "",
         description: "",
-        poster_image: null, // For file upload
+        poster_image: null,
         trailer_video: "",
     });
 
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate();  // Initialize navigate
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -35,24 +38,27 @@ function AddMovies() {
         }
 
         try {
-            const response = await axios.post("http://127.0.0.1:8000/movies/add/", data, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            setMessage(response.data.message);
-            setFormData({
-                name: "",
-                release_year: "",
-                director: "",
-                casts: "",
-                genre: "",
-                description: "",
-                poster_image: null,
-                trailer_video: "",
-            });
-        } catch (err) {
-            setError(err.response?.data?.error || "Something went wrong");
+            const response = await axios.post(
+                "http://127.0.0.1:8000/movies/add/", // your API endpoint here
+                data,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            setMessage(response.data.message); // Show success message
+            setError(null); // Clear error message if success
+
+            // Redirect to the movies page after success
+            setTimeout(() => {
+                navigate("/movies"); // Replace with your movies page route
+            }, 2000); // 2 seconds delay before redirect
+
+        } catch (error) {
+            console.error("Error adding movie:", error.response?.data || error.message);
+            setError("An error occurred while adding the movie."); // Show error message
+            setMessage(null); // Clear success message if error
         }
     };
 

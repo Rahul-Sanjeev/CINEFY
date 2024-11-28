@@ -53,7 +53,7 @@ function MoviesPage() {
                         <li key={movie.id}>
                             <Link to={`/movies/${movie.id}`} className="movie-card-link">
                                 <img
-                                    src={`http://127.0.0.1:8000${movie.image_url}`}
+                                    src={`http://127.0.0.1:8000/${movie.poster_image}`}
                                     alt={movie.name}
                                     className="movie-poster"
                                 />

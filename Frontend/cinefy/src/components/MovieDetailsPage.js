@@ -43,7 +43,7 @@ function MovieDetailsPage() {
                 <h1 className="text-4xl font-bold mb-4">{movie.name}</h1>
                 <div className="poster">
                     <img
-                        src={`http://127.0.0.1:8000${movie.image_url}`}
+                        src={`http://127.0.0.1:8000${movie.poster_image}`}
                         alt={movie.name}
                         className="w-full object-cover"
                     />
