@@ -9,6 +9,7 @@ import ContactPage from "./components/ContactPage";
 
 import MovieDetailsPage from "./components/MovieDetailsPage";
 import AddMovies from "./components/AddMovies";
+import EditMoviePage from "./components/EditMoviePage";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           {/* Add Movie Page */}
           <Route path="/add-movie" element={<AddMovies />} />
           <Route path="/movies/:id" element={<MovieDetailsPage />} />
+          <Route path="/editmovie/:id" element={<EditMoviePage />} />
+
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,22 @@
+/* EditMoviePage.css */
+.container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.max-w-4xl {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+button {
+    width: 45%;
+}
+
+button:hover {
+    cursor: pointer;
+}

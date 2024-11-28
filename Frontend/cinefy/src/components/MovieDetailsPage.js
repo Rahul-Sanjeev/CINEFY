@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";  // Import useNavigate
 import axios from "axios";
 import "../styles/MovieDetailsPage.css";
 
 function MovieDetailsPage() {
-    const { id } = useParams(); // Get the movie ID from the URL
+    const { id } = useParams();  // Get the movie ID from the URL
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();  // Initialize useNavigate hook
 
     useEffect(() => {
+        console.log("Movie ID:", id);  // Log the id to confirm it's correct
         axios
-            .get(`http://127.0.0.1:8000/movies/${id}/`) // Fetch single movie details
+            .get(`http://127.0.0.1:8000/movies/${id}/`)  // Correct API endpoint
             .then((response) => {
                 setMovie(response.data);
                 setLoading(false);
@@ -20,6 +22,19 @@ function MovieDetailsPage() {
                 setLoading(false);
             });
     }, [id]);
+
+    const handleDelete = () => {
+        axios
+            .delete(`http://127.0.0.1:8000/movies/${id}/`)  // Correct API endpoint to delete the movie
+            .then(() => {
+                alert("Movie deleted successfully");
+                navigate("/movies");  // Navigate back to the movie list page
+            })
+            .catch((error) => {
+                console.error("Error deleting movie:", error);
+                alert("Failed to delete movie.");
+            });
+    };
 
     if (loading) {
         return (
@@ -73,6 +88,22 @@ function MovieDetailsPage() {
                     >
                         Watch Trailer
                     </a>
+                </div>
+
+                {/* Edit and Delete Buttons */}
+                <div className="p-6 flex justify-between">
+                    <button
+                        onClick={() => navigate(`/editmovie/${id}`)}  // Navigate to Edit page
+                        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    >
+                        Edit Movie
+                    </button>
+                    <button
+                        onClick={handleDelete}
+                        className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    >
+                        Delete Movie
+                    </button>
                 </div>
             </div>
         </div>
