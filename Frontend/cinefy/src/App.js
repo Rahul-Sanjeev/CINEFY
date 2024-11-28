@@ -11,12 +11,19 @@ import MovieDetailsPage from "./components/MovieDetailsPage";
 import AddMovies from "./components/AddMovies";
 import EditMoviePage from "./components/EditMoviePage";
 
+import LoginPage from "./components/LoginPage";
+import RegistrationPage from "./components/RegistrationPage";
+
 function App() {
   return (
     <Router>
       <div>
         <NavBar />
         <Routes>
+          {/* Login and Register Pages */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          {/* Home, Movies, About, Contact Pages */}
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/about" element={<AboutPage />} />

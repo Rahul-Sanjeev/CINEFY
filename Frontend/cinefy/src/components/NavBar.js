@@ -26,6 +26,13 @@ function NavBar() {
                 <Link to="/contact" className="navbar-link">
                     Contact
                 </Link>
+                {/* Login and Register Buttons */}
+                <Link to="/login" className="navbar-button navbar-login">
+                    Login
+                </Link>
+                <Link to="/register" className="navbar-button navbar-register">
+                    Register
+                </Link>
             </div>
         </nav>
     );

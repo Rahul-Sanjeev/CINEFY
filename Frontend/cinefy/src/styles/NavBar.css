@@ -55,3 +55,38 @@
     /* Tailwind's bg-indigo-500 */
     color: white;
 }
+/* Button styles for Login and Register */
+.navbar-button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Login button style */
+.navbar-login {
+    background-color: #4f46e5;
+    /* Tailwind's bg-indigo-500 */
+    color: white;
+}
+
+.navbar-login:hover {
+    background-color: #6366f1;
+    /* Tailwind's text-indigo-500 */
+    color: white;
+}
+
+/* Register button style */
+.navbar-register {
+    background-color: #22c55e;
+    /* Tailwind's bg-green-500 */
+    color: white;
+}
+
+.navbar-register:hover {
+    background-color: #16a34a;
+    /* Tailwind's text-green-600 */
+    color: white;
+}
