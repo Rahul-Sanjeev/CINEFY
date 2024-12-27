@@ -1,5 +1,7 @@
 import React from "react";
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
@@ -11,18 +13,28 @@ import MovieDetailsPage from "./components/MovieDetailsPage";
 import AddMovies from "./components/AddMovies";
 import EditMoviePage from "./components/EditMoviePage";
 
-import LoginPage from "./components/LoginPage";
-import RegistrationPage from "./components/RegistrationPage";
+import ResetPassword from "./components/Account/ResetPassword";
+import ResetPasswordConfirm from "./components/Account/ResetPasswordConfirm";
+import Activation from "./components/Account/Activation";
 
+import { Provider } from "react-redux";
+import store from "./components/Account/Store";
+import Login from "./components/Account/Login";
+import Register from "./components/Account/Register";
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <div>
         <NavBar />
         <Routes>
           {/* Login and Register Pages */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegistrationPage />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/reset-password" element={<ResetPassword />} />
+            <Route exact path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
+            <Route exact path="/activate/:uid/:token" element={<Activation />} />
+
           {/* Home, Movies, About, Contact Pages */}
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
@@ -35,7 +47,8 @@ function App() {
 
         </Routes>
       </div>
-    </Router>
+      </Router>
+    </Provider>
   );
 }
 

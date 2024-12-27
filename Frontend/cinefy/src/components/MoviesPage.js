@@ -15,6 +15,8 @@ function MoviesPage() {
             .then((response) => {
                 setMovies(response.data.movies_data);
                 setLoading(false);
+                const csrfToken = response.data.csrfToken;
+                axios.defaults.headers.common['X-CSRFToken'] = csrfToken;
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
