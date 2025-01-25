@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/AddMovies.css";
 
 function AddMovies() {
@@ -13,11 +15,8 @@ function AddMovies() {
         description: "",
         poster_image: null,
         trailer_video: "",
-        rating: "",  // Add rating field
+        rating: "", // Add rating field
     });
-
-    const [message, setMessage] = useState(null);
-    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
@@ -33,11 +32,10 @@ function AddMovies() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Ensure rating is a number
         const data = new FormData();
         for (let key in formData) {
             if (key === "rating") {
-                data.append(key, parseFloat(formData[key]));  // Ensure it's a number
+                data.append(key, parseFloat(formData[key])); // Ensure it's a number
             } else {
                 data.append(key, formData[key]);
             }
@@ -53,25 +51,20 @@ function AddMovies() {
                     },
                 }
             );
-            setMessage(response.data.message); // Show success message
-            setError(null); // Clear error message if success
-
+            toast.success(response.data.message); // Show success toast
             setTimeout(() => {
                 navigate("/movies"); // Redirect after success
             }, 2000);
-
         } catch (error) {
             console.error("Error adding movie:", error.response?.data || error.message);
-            setError("An error occurred while adding the movie.");
-            setMessage(null);
+            toast.error("An error occurred while adding the movie."); // Show error toast
         }
     };
 
     return (
         <div className="add-movie-container">
             <h1 className="add-movie-title">Add a New Movie</h1>
-            {message && <div className="success-message">{message}</div>}
-            {error && <div className="error-message">{error}</div>}
+            <ToastContainer position="top-right" autoClose={5000} />
             <form onSubmit={handleSubmit} className="add-movie-form">
                 <input
                     type="text"

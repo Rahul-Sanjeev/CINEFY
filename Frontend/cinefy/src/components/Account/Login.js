@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 import "../../styles/Auth.css";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-    const [successMessage, setSuccessMessage] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const navigate = useNavigate(); // Hook for navigation
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        // Reset messages and disable button
-        setErrorMessage("");
-        setSuccessMessage("");
         setIsSubmitting(true);
 
         try {
@@ -26,16 +21,17 @@ const Login = () => {
                 password,
             });
 
-            setSuccessMessage(response.data.message);
-            localStorage.setItem("token", response.data.token);
-            navigate("/"); // Redirect to the home page
+            // Save token to localStorage
+            localStorage.setItem("authToken", response.data.token);
 
-            setUsername("");
-            setPassword("");
+            // Dispatch custom event to notify NavBar
+            window.dispatchEvent(new Event("authChange"));
+
+            // Show success toast and navigate to home
+            toast.success("Login successful!", { position: "top-right", autoClose: 3000 });
+            navigate("/");
         } catch (error) {
-            if (error.response) {
-                setErrorMessage(error.response.data.error || "Invalid credentials");
-            }
+            toast.error("Login failed! Please check your credentials.", { position: "top-right" });
         } finally {
             setIsSubmitting(false);
         }
@@ -63,9 +59,6 @@ const Login = () => {
                     {isSubmitting ? "Logging in..." : "Login"}
                 </button>
             </form>
-
-            {errorMessage && <p className="error">{errorMessage}</p>}
-            {successMessage && <p className="success">{successMessage}</p>}
         </div>
     );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";  // Import useNavigate
 import axios from "axios";
 import "../styles/MovieDetailsPage.css";
+import ReviewSection from "./ReviewSection";
 
 function MovieDetailsPage() {
     const { id } = useParams();  // Get the movie ID from the URL
@@ -10,15 +11,15 @@ function MovieDetailsPage() {
     const navigate = useNavigate();  // Initialize useNavigate hook
 
     useEffect(() => {
-        console.log("Movie ID:", id);  // Log the id to confirm it's correct
-        axios
-            .get(`http://127.0.0.1:8000/movies/${id}/`)  // Correct API endpoint
+        console.log("Fetching movie with ID:", id);
+        axios.get(`http://127.0.0.1:8000/movies/${id}/`)
             .then((response) => {
+                console.log("Movie details response:", response.data);
                 setMovie(response.data);
                 setLoading(false);
             })
             .catch((error) => {
-                console.error("Error fetching movie details:", error);
+                console.error("Error fetching movie details:", error.response || error.message);
                 setLoading(false);
             });
     }, [id]);
@@ -89,6 +90,8 @@ function MovieDetailsPage() {
                         Watch Trailer
                     </a>
                 </div>
+                {/* Review Section */}
+                <ReviewSection />
 
                 {/* Edit and Delete Buttons */}
                 <div className="p-6 flex justify-between">

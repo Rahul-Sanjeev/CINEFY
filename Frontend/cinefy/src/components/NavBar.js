@@ -1,27 +1,45 @@
-import React from "react";
-import "../styles/NavBar.css"; // Import the external CSS file
+import React, { useState, useEffect } from "react";
+import "../styles/NavBar.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function NavBar() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 
-    // Check if the user is logged in
-    const isLoggedIn = !!localStorage.getItem("token");
+    useEffect(() => {
+        const checkAuth = () => {
+            const token = localStorage.getItem("authToken");
+            setIsLoggedIn(!!token); // Update login state based on token
+        };
+
+        // Check authentication state on component mount
+        checkAuth();
+
+        // Add an event listener for the custom `authChange` event
+        window.addEventListener("authChange", checkAuth);
+
+        // Cleanup event listener on unmount
+        return () => {
+            window.removeEventListener("authChange", checkAuth);
+        };
+    }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem("token"); // Remove the token
-        navigate("/login"); // Redirect to the login page
+        localStorage.removeItem("authToken"); // Remove token
+        window.dispatchEvent(new Event("authChange")); // Notify NavBar
+        navigate("/login"); // Redirect to login
     };
 
     return (
         <nav className="navbar">
-            {/* Logo */}
-            <Link to="/" className="navbar-logo">
-                Cinefy
-            </Link>
-
-            {/* Links */}
             <div className="navbar-links">
+                {/* Logo */}
+                <div>
+                    <Link to="/" className="navbar-logo">
+                        Cinefy
+                    </Link>
+                </div>
+
                 <Link to="/" className="navbar-link">
                     Home
                 </Link>
@@ -35,8 +53,11 @@ function NavBar() {
                     Contact
                 </Link>
 
-                {/* Conditional Rendering for Auth Buttons */}
-                {!isLoggedIn ? (
+                {isLoggedIn ? (
+                    <button onClick={handleLogout} className="navbar-button navbar-logout">
+                        Logout
+                    </button>
+                ) : (
                     <>
                         <Link to="/login" className="navbar-button navbar-login">
                             Login
@@ -45,13 +66,6 @@ function NavBar() {
                             Register
                         </Link>
                     </>
-                ) : (
-                    <button
-                        onClick={handleLogout}
-                        className="navbar-button navbar-logout"
-                    >
-                        Logout
-                    </button>
                 )}
             </div>
         </nav>

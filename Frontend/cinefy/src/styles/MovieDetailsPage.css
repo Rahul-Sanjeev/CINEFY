@@ -111,7 +111,6 @@ button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    
 }
 
 /* Edit button styling */
@@ -138,4 +137,100 @@ button.bg-red-600:hover {
 button:disabled {
     background-color: #d1d5db; /* Disabled gray */
     cursor: not-allowed;
+}
+
+/* --- Review Section --- */
+
+/* Review section container */
+.reviews {
+    margin-top: 20px;
+    padding: 16px;
+    border-top: 1px solid #e5e7eb; /* Light gray border */
+    background-color: #f9fafb; /* Slightly lighter background */
+}
+
+/* Review heading */
+.reviews h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937; /* Dark gray */
+    margin-bottom: 16px;
+}
+
+/* Individual review container */
+.review-item {
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border: 1px solid #e5e7eb; /* Light gray border */
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Review user and rating */
+.review-item p:first-of-type {
+    font-weight: bold;
+    color: #374151; /* Darker gray */
+    margin-bottom: 8px;
+}
+
+/* Review comments */
+.review-item p:last-of-type {
+    color: #6b7280; /* Light gray text for comments */
+    line-height: 1.5;
+}
+
+/* Add review form */
+.add-review {
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid #e5e7eb; /* Light gray border */
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+/* Add review heading */
+.add-review h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937; /* Dark gray */
+    margin-bottom: 16px;
+}
+
+/* Textarea styling */
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    resize: vertical;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Input styling */
+input[type="number"] {
+    width: 100px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+}
+
+/* Submit button styling */
+.add-review button {
+    background-color: #10b981; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-review button:hover {
+    background-color: #059669; /* Darker green */
 }

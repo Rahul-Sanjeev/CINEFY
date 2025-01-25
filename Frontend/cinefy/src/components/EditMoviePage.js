@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import "../styles/EditMoviePage.css";
 
@@ -28,25 +30,21 @@ function EditMoviePage() {
             })
             .catch((error) => {
                 console.error("Error fetching movie details:", error);
+                toast.error("An error occurred while fetching the movie details.");
                 setLoading(false);
             });
     }, [id]);
 
+
     // Handle form field changes
     const handleChange = (e) => {
         const { name, value, files } = e.target;
-        if (name === "poster_image") {
-            setMovie((prevMovie) => ({
-                ...prevMovie,
-                [name]: files[0], // Ensure `files[0]` is being used correctly
-            }));
-        } else {
-            setMovie((prevMovie) => ({
-                ...prevMovie,
-                [name]: value,
-            }));
-        }
+        setMovie((prevMovie) => ({
+            ...prevMovie,
+            [name]: files ? files[0] : value, // Use `files[0]` for file input
+        }));
     };
+
 
 
 
@@ -63,16 +61,12 @@ function EditMoviePage() {
         formData.append("genre", movie.genre);
         formData.append("rating", movie.rating);
         formData.append("description", movie.description);
-        formData.append("poster_image", movie.poster_image);  // Leave unchanged in the backend if it's a URL (string)
-        formData.append("trailer_video", movie.trailer_video);
 
-
-
-        // Log FormData to check if image is correctly appended
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
+        if (typeof movie.poster_image === "object") {
+            formData.append("poster_image", movie.poster_image);
         }
 
+        formData.append("trailer_video", movie.trailer_video);
 
         axios
             .put(`http://127.0.0.1:8000/movies/${id}/`, formData, {
@@ -81,12 +75,19 @@ function EditMoviePage() {
                 },
             })
             .then(() => {
-                history(`/movies/${id}`); // Correct usage of history
+                toast.success("Movie updated successfully!"); // Show toast
+                setTimeout(() => {
+                    history(`/movies/${id}`); // Navigate to movie details after success
+                }, 2000); // Delay for the toast to show
+
             })
             .catch((error) => {
-                console.error("Error updating movie:", error);
+                console.error("Error updating movie:", error.response?.data || error.message);
+                toast.error("An error occurred while updating the movie.");
             });
     };
+
+
 
 
 
