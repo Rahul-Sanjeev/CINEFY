@@ -1,0 +1,35 @@
+.profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.profile-details {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.profile-details p {
+    margin: 10px 0;
+}
+
+.profile-loading,
+.profile-error {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+.profile-error {
+    color: red;
+}

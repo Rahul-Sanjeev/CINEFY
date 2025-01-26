@@ -68,7 +68,7 @@ function AddMovies() {
             <button
                 onClick={() => navigate(-1)} // Go back to the previous page
                 style={{
-                    backgroundColor: '#000',
+                    backgroundColor: '#6A7081',
                     color: 'white',
                     marginTop: '15px',
                     marginLeft: '15px',

@@ -129,7 +129,7 @@ const ReviewSection = () => {
                                             });
                                         }}
                                         style={{
-                                            backgroundColor: 'blue',
+                                            backgroundColor: '#63B2DE',
                                             color: 'white',
                                             marginTop: '15px',
                                             margin: '15px',
@@ -142,7 +142,7 @@ const ReviewSection = () => {
                                     <button
                                         onClick={() => handleDelete(review.id)}
                                         style={{
-                                            backgroundColor: 'red',
+                                            backgroundColor: '#DE5D62',
                                             color: 'white',
                                             marginTop: '15px',
                                             margin: '15px',

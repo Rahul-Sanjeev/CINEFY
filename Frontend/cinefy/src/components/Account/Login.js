@@ -23,9 +23,10 @@ const Login = () => {
 
             // Ensure the response contains the expected data
             if (response.data && response.data.token && response.data.user && response.data.user.id) {
-                // Save token and user ID to localStorage
+                // Save token, user ID, and username to localStorage
                 localStorage.setItem("authToken", response.data.token);
-                localStorage.setItem("userId", response.data.user.id); // Store user ID
+                localStorage.setItem("userId", response.data.user.id);
+                localStorage.setItem("username", response.data.user.username); // Store username
 
                 // Dispatch custom event to notify NavBar
                 window.dispatchEvent(new Event("authChange"));

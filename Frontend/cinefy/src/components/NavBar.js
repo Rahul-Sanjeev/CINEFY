@@ -41,7 +41,7 @@ function NavBar() {
                 </div>
 
                 <Link to="/profile" className="navbar-link">
-                    Profile
+                    Account
                 </Link>
                 <Link to="/movies" className="navbar-link">
                     Movies
