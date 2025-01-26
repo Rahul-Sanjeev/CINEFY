@@ -28,7 +28,6 @@ const ReviewSection = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("authToken");
-        const userId = localStorage.getItem("userId"); // Get current user's ID
 
         try {
             if (editingReviewId) {
