@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/AddMovies.css";
+import { FaArrowLeft } from "react-icons/fa"; 
 
 function AddMovies() {
     const [formData, setFormData] = useState({
@@ -63,7 +64,27 @@ function AddMovies() {
 
     return (
         <div className="add-movie-container">
-            <h1 className="add-movie-title">Add a New Movie</h1>
+            {/* Back Button with Arrow Icon */}
+            <button
+                onClick={() => navigate(-1)} // Go back to the previous page
+                style={{
+                    backgroundColor: '#000',
+                    color: 'white',
+                    marginTop: '15px',
+                    marginLeft: '15px',
+                    width: '100px',
+                    height: '40px',
+                    borderRadius: '5px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',  // Space between icon and text
+                }}
+            >
+                <FaArrowLeft />  {/* Arrow Icon */}
+                Back
+            </button>
+            <h1 className="add-movie-title" style={{ color: "#2663EB" }}>Add a New Movie</h1>
             <ToastContainer position="top-right" autoClose={5000} />
             <form onSubmit={handleSubmit} className="add-movie-form">
                 <input

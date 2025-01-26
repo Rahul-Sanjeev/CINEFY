@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import HomePage from "./components/HomePage";
 import MoviesPage from "./components/MoviesPage";
 import AboutPage from "./components/AboutPage";
 import ContactPage from "./components/ContactPage";
@@ -15,6 +14,7 @@ import AddMovies from "./components/AddMovies";
 import EditMoviePage from "./components/EditMoviePage";
 import Login from "./components/Account/Login";
 import Register from "./components/Account/Register";
+import ProfilePage from "./components/ProfilePage";
 
 // Protected Route Component
 const ProtectedRoute = ({ element, ...rest }) => {
@@ -33,7 +33,8 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* Protected Routes */}
-          <Route path="/" element={<ProtectedRoute element={<HomePage />} />} />
+          <Route path="/" element={<ProtectedRoute element={<MoviesPage />} />} />
+          <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
           <Route path="/movies" element={<ProtectedRoute element={<MoviesPage />} />} />
           <Route path="/about" element={<ProtectedRoute element={<AboutPage />} />} />
           <Route path="/contact" element={<ProtectedRoute element={<ContactPage />} />} />

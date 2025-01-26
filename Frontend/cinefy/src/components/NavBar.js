@@ -40,8 +40,8 @@ function NavBar() {
                     </Link>
                 </div>
 
-                <Link to="/" className="navbar-link">
-                    Home
+                <Link to="/profile" className="navbar-link">
+                    Profile
                 </Link>
                 <Link to="/movies" className="navbar-link">
                     Movies

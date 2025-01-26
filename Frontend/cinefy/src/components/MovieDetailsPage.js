@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";  // Import useNavigat
 import axios from "axios";
 import "../styles/MovieDetailsPage.css";
 import ReviewSection from "./ReviewSection";
+import { FaArrowLeft } from "react-icons/fa";  // Import the arrow icon
 
 function MovieDetailsPage() {
     const { id } = useParams();  // Get the movie ID from the URL
@@ -54,8 +55,30 @@ function MovieDetailsPage() {
     }
 
     return (
+
+
         <div className="container bg-gray-100 py-12 px-6 sm:px-12">
             <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+                {/* Back Button with Arrow Icon */}
+                <button
+                    onClick={() => navigate(-1)} // Go back to the previous page
+                    style={{
+                        backgroundColor: '#000',
+                        color: 'white',
+                        marginTop: '15px',
+                        marginLeft: '15px',
+                        width: '100px',
+                        height: '40px',
+                        borderRadius: '5px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',  // Space between icon and text
+                    }}
+                >
+                    <FaArrowLeft />  {/* Arrow Icon */}
+                    Back
+                </button>
                 <h1 className="text-4xl font-bold mb-4">{movie.name}</h1>
                 <div className="poster">
                     <img
