@@ -1,0 +1,308 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-01-25T17:08:11.645Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "Review by rahulsanjeev on Oppenheimer",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-01-25T20:36:01.098Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "Review by rahulsanjeev on Oppenheimer",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Rating\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-01-26T09:25:55.176Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "2",
+    "object_repr": "rahulsanjeev",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-01-26T14:27:01.444Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "2",
+    "object_repr": "rahulsanjeev",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-01-26T14:32:39.895Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "3",
+    "object_repr": "testuser",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0mldwjknim4zohzrxpqr8q7cgsdiez4j",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGln-J6Gk5wzW7nqNA8iW4qRC3B0ipYD2zcx7iQjbWuLWeYlzEmehxel3Q6AH1x2kO9Rbk9Tquswod0UetMtrS_y8HO7fQYFevrUbETKDTmMwhigkSMFo7XTIXjmFiBnB2CErpmwHZ2Eiy4a9R0fsJvH-AAHIOKk:1tc3gl:-3oJFqk7xqo1lxjk8hBaOlz_rfIvqPNmhgVEbtgmipY",
+    "expire_date": "2025-02-09T14:32:39.913Z"
+  }
+},
+{
+  "model": "users.useraccount",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$7hvCAu9EHSsWyLA9swgyBS$gQDTAev5IDO2I1anHCJzZxHhc+h/2Kh+WKErMAYpN9c=",
+    "last_login": "2025-01-25T11:27:53.024Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-01-25T11:27:32.992Z",
+    "email": "admin@gmail.com",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.useraccount",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$0M0nDboZkDYbRnwz8cd8Kk$pUes2i8GJPZdWuUaluIl+jhBifROdZB7Nq6eGpQgrBc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "rahulsanjeev",
+    "first_name": "Rahul",
+    "last_name": "Sanjeev",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-01-25T11:29:31.581Z",
+    "email": "rahulsanjeev9@gmail.com",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.useraccount",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$0IRgZIhwvhnCUuwmN9MPcH$sGh4ru1NYKRm0582ylhq8ptkcwxqZZOlebH3CurZGkY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "testuser",
+    "first_name": "Test",
+    "last_name": "User",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-01-26T14:30:51.300Z",
+    "email": "testuser@gmail.com",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "movies.movie",
+  "pk": 1,
+  "fields": {
+    "name": "Oppenheimer",
+    "release_year": "2023",
+    "director": "Christopher Nolan",
+    "casts": "Cillian Murphy, Emily Blunt, Matt Damon",
+    "genre": "Docudrama",
+    "rating": 8.3,
+    "description": "A dramatization of the life story of J. Robert Oppenheimer, the physicist who had a large hand in the development of the atomic bombs that brought an end to World War II.",
+    "poster_image": "posters/oppenheimer-poster.jpg",
+    "trailer_video": "https://youtu.be/uYPbbksJxIg?si=QeCNG0qX39w9oIrM"
+  }
+},
+{
+  "model": "movies.movie",
+  "pk": 2,
+  "fields": {
+    "name": "Premalu",
+    "release_year": "2024",
+    "director": "Girish A.D.",
+    "casts": "Naslen, Mamitha Baiju, Shyam Mohan",
+    "genre": "Comedy Romance",
+    "rating": 7.8,
+    "description": "Sachin's quest for love takes unexpected turns, creating a laughter-filled love triangle.",
+    "poster_image": "posters/Premalu-poster.jpg",
+    "trailer_video": "https://youtu.be/rR_2ti4l3nM?si=fedh7VtSXndGhBxw"
+  }
+},
+{
+  "model": "movies.movie",
+  "pk": 3,
+  "fields": {
+    "name": "Rifle Club",
+    "release_year": "2024",
+    "director": "Aashiq Abu",
+    "casts": "Anurag Kashyap, Dileesh Pothan, Vijayaraghavan",
+    "genre": "Action",
+    "rating": 6.0,
+    "description": "A historic rifle club faces a vengeful arms dealer's gang in the Western Ghats. Skilled hunters fight to survive and protect their legacy.",
+    "poster_image": "posters/Rifle_Clib-poster.jpg",
+    "trailer_video": "https://youtu.be/_HacZSM24mA?si=juTVNRcbl_7WUeJ0"
+  }
+},
+{
+  "model": "movies.movie",
+  "pk": 4,
+  "fields": {
+    "name": "Kishkindha Kaandam",
+    "release_year": "2024",
+    "director": "Dinjith Ayyathan",
+    "casts": "Asif Ali, Vijayaraghavan, Aparna Balamurali",
+    "genre": "Drama, Mystery, Thriller",
+    "rating": 8.0,
+    "description": "Strange events unfold in a monkey-inhabited village, prompting a newlywed pair and forest officials to embark on a mission to uncover the root cause of the peculiar disturbances.",
+    "poster_image": "posters/Kishkindha_Kaandam-poster.jpg",
+    "trailer_video": "https://youtu.be/6jR7lL-o7js?si=E38hlyLU9g1FrOMu"
+  }
+},
+{
+  "model": "movies.movie",
+  "pk": 5,
+  "fields": {
+    "name": "I Am Kathalan",
+    "release_year": "2024",
+    "director": "Girish A.D.",
+    "casts": "Naslen, Arshad Ali, Anishma Anilkumar, Vineeth Chakyar",
+    "genre": "Comedy",
+    "rating": 6.7,
+    "description": "A college student decides to hack into the security system of a company owned by his ex-girlfriend's father.",
+    "poster_image": "posters/I_Am_Kathalan.jpg",
+    "trailer_video": "https://youtu.be/wg_d34GNd4s?si=QDoZTcCbS16dW68s"
+  }
+},
+{
+  "model": "movies.review",
+  "pk": 2,
+  "fields": {
+    "movie": 1,
+    "user": 1,
+    "comments": "Great movie!",
+    "rating": 5.0,
+    "created_at": "2025-01-25T19:59:59.581Z"
+  }
+},
+{
+  "model": "movies.review",
+  "pk": 7,
+  "fields": {
+    "movie": 1,
+    "user": 2,
+    "comments": "Is it just me or did anyone else find this movie... I hate to say it... boring?. I know I know it's a piece of history and don't get me wrong it was a good movie but idk, going in the theater expecting something \"Nolanesque\" and it never came so I was kind of a disappointed. I was super excited going in the theater and leaving I was like ,yeah it was good buuuuttt. I guess I was expecting something like inception and or interstellar but those are fictional and I get that this is based off of a true story . I think everyone should watch this movie once and it was very eye opening but I won't ever endure the painful 3 hour movie experience again .",
+    "rating": 5.0,
+    "created_at": "2025-01-26T10:42:37.108Z"
+  }
+},
+{
+  "model": "movies.review",
+  "pk": 8,
+  "fields": {
+    "movie": 2,
+    "user": 2,
+    "comments": "A complete laugh riot if you're a Malayali. Premalu is so entertaining and so relatable, it's truly unbelievable how good this was using such a simple template rom-com story. Even though this is set in the city of Hyderabad, the two kinds of life they showed brought so many memories of my time in Banglore. I've experienced both those lifestyles even if not to the extremes this showed. The way so many dialogues and situations worked can only work with charming performances, natural dialogue deliveries and the details of the dialogue that are so close to how this generation of Malayalis communicates. All the performances and the specific vision of the director to bring out those performances really make an impact.",
+    "rating": 5.0,
+    "created_at": "2025-01-26T10:56:38.417Z"
+  }
+},
+{
+  "model": "movies.review",
+  "pk": 9,
+  "fields": {
+    "movie": 3,
+    "user": 2,
+    "comments": "The film was great and I had a blast watching it. Nearly every aspect was very well done. The main performances especially from dileesh pothen and anurag kashyap are great. The side actors like vani vishwanath and vijayaraghavan provide good support. Vineeth Kumar has a good role. Some of the side actors are just alright. The much hyped Hanumankind was just alright and you can tell he's never acted in a film before. The music, cinematography, and editing are all great. The film goes in a very fast pace and you won't notice the time flying by. The only major problem is the dialogues which sound completely out of place some times. Whenever dileesh pothen says a double meaning joke, he literally says \"double meaning double meaning\" right after. That completely ruins the joke. There is a scene where dileesh pothen says dialogues in pure malayalam and another character translates them into english. If the audience needs to understand every word, they can just turn on subtitles right? Otherwise the film is a simple and well done film that you will definitely enjoy.",
+    "rating": 5.0,
+    "created_at": "2025-01-26T11:48:51.379Z"
+  }
+},
+{
+  "model": "movies.review",
+  "pk": 10,
+  "fields": {
+    "movie": 4,
+    "user": 2,
+    "comments": "I believe one of the best aspects of a great thriller is its complex design, with multiple moving parts, concurrent storylines, and a nonlinear narrative that eventually comes together into a cohesive and gripping whole.\n\nKishkindha Kaandam exemplifies this brilliantly, standing out as one of the best if the best thriller of this year.\n\nAt first, it can feel overwhelming to piece together the seemingly disconnected events. However, as the story unfolds, their relevance becomes increasingly apparent. What makes it even more intriguing is how the audience primarily experiences the narrative through the perspective of the lead female character, Aparna, and at key moments, the father figure, Appu Pillai-while notably excluding the viewpoint of the lead actor, Ajay. The director masterfully crafts the story, skillfully revealing crucial moments only when they are essential to driving the plot forward, and we finally get to see the lead male character, Ajay's point of view in the end.",
+    "rating": 5.0,
+    "created_at": "2025-01-26T12:18:12.019Z"
+  }
+},
+{
+  "model": "movies.review",
+  "pk": 11,
+  "fields": {
+    "movie": 2,
+    "user": 2,
+    "comments": "Loved it!!!",
+    "rating": 3.0,
+    "created_at": "2025-01-26T14:46:12.487Z"
+  }
+},
+{
+  "model": "movies.review",
+  "pk": 12,
+  "fields": {
+    "movie": 2,
+    "user": 3,
+    "comments": "Great Movie!!!",
+    "rating": 3.5,
+    "created_at": "2025-01-26T14:47:15.893Z"
+  }
+},
+{
+  "model": "movies.review",
+  "pk": 13,
+  "fields": {
+    "movie": 5,
+    "user": 2,
+    "comments": "Slow start to an unexpected turn. Throughly enjoyed this movie. Initially was puzzled by the slow boring kinda events happening, till the slap that triggered a series of revenge events happened. H shows how smart ones can probably be not the academically performing ones. And the one with a lot of papers failed can outsmart someone who has a CA degree. Naslen has totally proved himself to be an upcoming star. Directed by Gireesh AD and released in 2024, it's definitely a good movie to watch. And true friendship is also shown in the way he always hangs out with the auto driver and the computer service guy. Loved it.",
+    "rating": 5.0,
+    "created_at": "2025-01-26T18:17:19.284Z"
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "467f35bbb4da818113ad6154946f856f5cefcf63",
+  "fields": {
+    "user": 2,
+    "created": "2025-01-25T11:29:32.406Z"
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "d4e9610ec4dd86a761a9e991afaadf48c02278e1",
+  "fields": {
+    "user": 3,
+    "created": "2025-01-26T14:30:52.108Z"
+  }
+}
+]
