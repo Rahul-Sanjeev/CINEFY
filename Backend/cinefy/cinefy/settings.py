@@ -13,15 +13,17 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e#^exxh4zgzou3%exk*qa0(p^&bi7ijp&&3ql=7z1yo9wt72$('
+# Get SECRET_KEY from the .env file
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -71,12 +73,14 @@ REST_FRAMEWORK = {
 }
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+if not DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ALLOWED_ORIGINS = [
+        "https://cinefy.vercel.app",
+    ]
+else:
+    CORS_ALLOW_ALL_ORIGINS = True
 
-# Update CORS for your React frontend
-CORS_ALLOWED_ORIGINS = [
-    "https://cinefy.vercel.app"
-]
 
 
 ROOT_URLCONF = 'cinefy.urls'
@@ -99,20 +103,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cinefy.wsgi.application'
 
+# Secret key for Django
+SECRET_KEY = config('SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# PostgreSQL Database
-
+# PostgreSQL Database Configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Cinefy-DB',  # Your database name
-        'USER': 'cinefy_admin',  # Your database user
-        'PASSWORD': 'Rahul@1997',  # The password you set for cinefy_admin
-        'HOST': 'localhost',  # The host of your PostgreSQL server
-        'PORT': '5432',  # Default PostgreSQL port
+        'NAME': config('DB_NAME', default='Cinefy-DB'),
+        'USER': config('DB_USER', default='cinefy_admin'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 

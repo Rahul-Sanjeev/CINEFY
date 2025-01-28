@@ -6,7 +6,7 @@ databases:
 
 sservices:
   - type: web
-    name: cinefy-backend
+    name: cinefydb
     runtime: python
     buildCommand: "./Backend/cinefy/build.sh"
     startCommand: "cd Backend/cinefy && python manage.py runserver"
@@ -20,4 +20,3 @@ sservices:
       - key: DEBUG
         value: "False"
   - type: postgres
-    name: cinefy-db
