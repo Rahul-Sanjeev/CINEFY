@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'whitenoise.runserver_nostatic',
+    'whitenoise.runserver_nostatic',  # WhiteNoise
 ]
 
 MIDDLEWARE = [
@@ -169,3 +169,12 @@ AUTH_USER_MODEL = 'users.UserAccount'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storages.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
