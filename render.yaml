@@ -1,7 +1,7 @@
 databases:
   - name: cinefydb
     plan: free
-    databaseName: Cinefy-DB
+    databaseName: cinefydb
     user: cinefy_admin
 
 services:
