@@ -4,19 +4,18 @@ databases:
     databaseName: Cinefy-DB
     user: cinefy_admin
 
-sservices:
+services:
   - type: web
-    name: cinefydb
+    name: cinefy-web  # Unique name for the web service
     runtime: python3
-    buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn cinefy.asgi:application -k uvicorn.workers.UvicornWorker"
+    buildCommand: "cd Backend/cinefy && chmod +x build.sh && ./build.sh"
+    startCommand: "poetry run gunicorn cinefy.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: cinefy-db
+          name: cinefydb
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
         value: "False"
-  - type: postgres

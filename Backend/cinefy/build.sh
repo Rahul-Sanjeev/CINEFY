@@ -1,10 +1,25 @@
-set -o errexit
+#!/bin/bash
+set -o errexit  # Exit the script if any command fails
 
-# Install dependencies
-pip install -r Backend/cinefy/requirements.txt
+# Print current directory for debugging
+echo "Current directory: $(pwd)"
+
+# Install Poetry if not already installed
+if ! command -v poetry &> /dev/null; then
+    echo "Installing Poetry..."
+    pip install poetry
+fi
+
+# Install dependencies using Poetry
+echo "Installing dependencies..."
+poetry install
 
 # Collect static files (for production)
-python Backend/cinefy/manage.py collectstatic --no-input
+echo "Collecting static files..."
+poetry run python manage.py collectstatic --no-input
 
 # Apply database migrations
-python Backend/cinefy/manage.py migrate
+echo "Applying database migrations..."
+poetry run python manage.py migrate
+
+echo "Build completed successfully."
