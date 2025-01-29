@@ -8,8 +8,8 @@ services:
   - type: web
     name: cinefy-web
     runtime: python3
-    buildCommand: "cd Backend/cinefy && chmod +x build.sh && ./build.sh"
-    startCommand: "gunicorn cinefy.asgi:application -k uvicorn.workers.UvicornWorker"
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn cinefy.wsgi:application"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
