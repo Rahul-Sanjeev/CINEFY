@@ -11,7 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-settings_module = 'cinefy.deployment' if 'RENDER_EXTERNAL_HOSTNAME' in os.environ else 'cinefy.settings'
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cinefy.settings')
 
 application = get_asgi_application()

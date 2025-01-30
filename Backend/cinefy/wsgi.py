@@ -7,13 +7,10 @@ For more information on this file, see
 https://docs.djangoproject.com/en/5.0/howto/deployment/wsgi/
 """
 
-
-
 import os
 
 from django.core.wsgi import get_wsgi_application
 
-settings_module = 'cinefy.deployment' if 'RENDER_EXTERNAL_HOSTNAME' in os.environ else 'cinefy.settings'
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cinefy.settings')
 
 application = get_wsgi_application()
