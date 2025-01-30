@@ -91,10 +91,7 @@ WSGI_APPLICATION = 'cinefy.wsgi.application'
 
 # Fetch DATABASE_URL from environment variables
 DATABASES = {
-    'default': dj_database_url.config(
-        # Fetch DATABASE_URL from environment variable
-        default=os.getenv('DATABASE_URL')
-    )
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 
