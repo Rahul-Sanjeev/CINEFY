@@ -2,12 +2,12 @@
 # Exit on error
 set -o errexit
 
+# Set environment variables
+export DJANGO_SETTINGS_MODULE="Backend.cinefy.cinefy.settings"
+export PYTHONPATH=$(pwd)/Backend:$PYTHONPATH
+
 # Install dependencies
 pip install -r Backend/cinefy/requirements.txt
-
-# Apply environment variables
-export DJANGO_SETTINGS_MODULE="cinefy.settings"
-export PYTHONPATH=$(pwd)/Backend/cinefy
 
 # Collect static files
 python Backend/cinefy/manage.py collectstatic --noinput

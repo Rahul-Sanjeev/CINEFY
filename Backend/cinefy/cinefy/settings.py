@@ -22,7 +22,7 @@ DEBUG = False
 
 # Allow Vercel and Railway domains
 ALLOWED_HOSTS = ["https://cinefy-fa37.onrender.com",
-                 "www.cinefy-fa37.onrender.com"]
+                 "cinefy-fa37.onrender.com"]
 
 # Application definition
 
