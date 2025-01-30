@@ -55,10 +55,17 @@ REST_FRAMEWORK = {
 
 # CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ['https://' +
-                        os.environ.get("RENDER_EXTERNAL_HOSTNAME")]
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',  # Local development
+    'http://127.0.0.1:8000',  # Local development
+]
+
+if hostname := os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
+    CSRF_TRUSTED_ORIGINS.append(f'https://{hostname}')
+
 
 ROOT_URLCONF = 'cinefy.urls'
+
 
 TEMPLATES = [
     {
@@ -81,8 +88,10 @@ WSGI_APPLICATION = 'cinefy.wsgi.application'
 # Database Configuration
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,  # Connection pool will close and reopen every 600 seconds
+        # Fallback to SQLite locally
+        default=os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'),
+        conn_max_age=600,
+        # ssl_require=True  # Enable SSL for Render PostgreSQL
     )
 }
 
