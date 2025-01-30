@@ -12,22 +12,6 @@ DEBUG = False
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # This should be placed at the top
-    'django.middleware.common.CommonMiddleware',
-
-    'django.middleware.security.SecurityMiddleware',
-
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoiseMiddleware
-
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
 CORS_ALLOWED_ORIGINS = ['https://localhost:5173']
 
 STORAGES = {
@@ -41,7 +25,7 @@ STORAGES = {
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get["DATABASE_URL"],
+        default=os.environ.get("DATABASE_URL"),
         conn_max_age=600,  # Connection pool will close and reopen every 600 seconds
     )
 }
