@@ -14,7 +14,6 @@ import os
 from pathlib import Path
 
 import dj_database_url
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,15 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Get SECRET_KEY from the .env file
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "django-insecure-e#^exxh4zgzou3%exk*qa0(p^&bi7ijp&&3ql=7z1yo9wt72$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG')
 
 # Allow Vercel and Railway domains
-ALLOWED_HOSTS = ['https://cinefy-7oqz.onrender.com',
-                 'cinefy-7oqz.onrender.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -75,13 +72,10 @@ REST_FRAMEWORK = {
 }
 
 
-if not DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = False
-    CORS_ALLOWED_ORIGINS = [
-        "https://cinefy.vercel.app",
-    ]
-else:
-    CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = ["https://cinefy.vercel.app"]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 
@@ -105,27 +99,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cinefy.wsgi.application'
 
-# Secret key for Django
-SECRET_KEY = config('SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # PostgreSQL Database Configuration
+# Database Configuration for PostgreSQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='cinefydb'),
-        'USER': config('DB_USER', default='cinefy_admin'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
+        'NAME': 'cinefydb',  # Your database name
+        'USER': 'cinefydb',  # Your PostgreSQL username
+        'PASSWORD': 'Rahul@1997',  # Your PostgreSQL password
+        'HOST': 'localhost',  # Or use the IP address or the hostname of the server if not local
+        'PORT': '5432',  # Default port for PostgreSQL
     }
 }
 
-# DATABASES = {
-#     'default': dj_database_url.parse(config('DATABASE_URL'))
-# }
+DATABASES['default'] = dj_database_url.parse(
+    "postgresql://cinefydb_210j_user:JlSuMnVSmH8RODCMcxbKpQoMgOjNF9ad@dpg-cudijkqj1k6c73cobfjg-a.oregon-postgres.render.com/cinefydb_210j")
+
+
+
 
 
 # Password validation
@@ -163,10 +158,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -183,12 +177,3 @@ AUTH_USER_MODEL = 'users.UserAccount'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
-
-STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storages.FileSystemStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-    },
-}
