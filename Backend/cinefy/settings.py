@@ -64,9 +64,6 @@ if hostname := os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
     CSRF_TRUSTED_ORIGINS.append(f'https://{hostname}')
 
 
-ROOT_URLCONF = 'cinefy.urls'
-
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -82,6 +79,9 @@ TEMPLATES = [
         },
     },
 ]
+
+
+ROOT_URLCONF = 'cinefy.urls'
 
 WSGI_APPLICATION = 'cinefy.wsgi.application'
 
