@@ -10,7 +10,7 @@ services:
     name: cinefy
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn cinefy.wsgi:application"
+    startCommand: "gunicorn Backend.cinefy.cinefy.wsgi:application"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
