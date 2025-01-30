@@ -9,3 +9,6 @@ python Backend/manage.py collectstatic --no-input
 
 # Run migrations
 python Backend/manage.py migrate
+
+# Add Backend to the Python path
+export PYTHONPATH="${PYTHONPATH}:/opt/render/project/src/Backend"
