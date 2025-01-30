@@ -11,7 +11,7 @@ DEBUG = False
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
-CORS_ALLOWED_ORIGINS = ['https://localhost:5173']
+# CORS_ALLOWED_ORIGINS = ['https://localhost:5173']
 
 STORAGES = {
     'default': {
