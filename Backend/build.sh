@@ -4,11 +4,11 @@ set -o errexit
 # Add Backend directory to Python path
 export PYTHONPATH="${PYTHONPATH}:/opt/render/project/src/Backend"
 
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies from Backend/requirements.txt
+pip install -r Backend/requirements.txt  # Adjust path if needed
 
 # Collect static files
-python manage.py collectstatic --no-input
+python Backend/manage.py collectstatic --no-input
 
 # Run migrations
-python manage.py migrate
+python Backend/manage.py migrate
