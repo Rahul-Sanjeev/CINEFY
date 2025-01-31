@@ -13,9 +13,11 @@ python Backend/manage.py collectstatic --no-input
 # Run migrations
 python Backend/manage.py migrate
 
-if [[$CREATE_SUPERUSER]];
-then
-    # Create a superuser
-    python Backend/manage.py createsuperuser --no-input
-    echo "Creating superuser..."
+# Check if CREATE_SUPERUSER is set
+if [[ "$CREATE_SUPERUSER" == "true" ]]; then
+    echo "Creating Django superuser..."
+    python Backend/manage.py createsuperuser \
+        --username "$DJANGO_SUPERUSER_USERNAME" \
+        --email "$DJANGO_SUPERUSER_EMAIL" \
+        --no-input || true
 fi
