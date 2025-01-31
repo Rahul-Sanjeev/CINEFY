@@ -3,6 +3,7 @@ from pathlib import Path
 
 import dj_database_url
 from dotenv import load_dotenv
+
 load_dotenv()  # Add this at the top
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -17,8 +18,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-# Allow Render domains
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+# Allow Vercel and Railway domains
+ALLOWED_HOSTS = [os.environ.get("RENDER_EXTERNAL_HOSTNAME")]
 
 # Application definition
 INSTALLED_APPS = [
