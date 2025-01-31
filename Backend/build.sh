@@ -12,3 +12,10 @@ python Backend/manage.py collectstatic --no-input
 
 # Run migrations
 python Backend/manage.py migrate
+
+if [[$CREATE_SUPERUSER]];
+then
+    # Create a superuser
+    python Backend/manage.py createsuperuser --no-input
+    echo "Creating superuser..."
+fi
