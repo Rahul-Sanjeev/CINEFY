@@ -12,3 +12,8 @@ python Backend/manage.py collectstatic --no-input
 
 # Run migrations
 python Backend/manage.py migrate
+
+# Check if CREATE_SUPERUSER is set
+if [ "$CREATE_SUPERUSER" = "true" ]; then
+    python Backend/manage.py createsuperuser --no-input || true
+fi
