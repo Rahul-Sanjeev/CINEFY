@@ -1,8 +1,8 @@
 #!/bin/bash
 set -o errexit
 
-# Set the root project directory to Python path
-export PYTHONPATH="${PYTHONPATH}:/opt/render/project/src"
+# Set PYTHONPATH to include the Backend directory
+export PYTHONPATH="${PYTHONPATH}:$(pwd)/Backend"
 
 # Install dependencies
 pip install -r Backend/requirements.txt
