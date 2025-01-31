@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -88,12 +89,12 @@ WSGI_APPLICATION = 'cinefy.wsgi.application'
 # Database Configuration
 DATABASES = {
     'default': dj_database_url.config(
-        # Fallback to SQLite locally
-        default=os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'),
-        conn_max_age=600,
-        # ssl_require=True  # Enable SSL for Render PostgreSQL
+        # Fallback to SQLite
+        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
+        conn_max_age=600
     )
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -146,3 +147,15 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+
+# Automatically create superuser if env vars are set
+if os.environ.get('CREATE_SUPERUSER'):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    if not User.objects.filter(username=os.environ['DJANGO_SUPERUSER_USERNAME']).exists():
+        User.objects.create_superuser(
+            os.environ['DJANGO_SUPERUSER_USERNAME'],
+            os.environ['DJANGO_SUPERUSER_EMAIL'],
+            os.environ['DJANGO_SUPERUSER_PASSWORD']
+        )
