@@ -43,8 +43,13 @@ function AddMovies() {
         }
 
         try {
+            const API_BASE_URL =
+                process.env.NODE_ENV === "development"
+                    ? process.env.REACT_APP_API_URL_LOCALHOST
+                    : process.env.REACT_APP_API_URL_DEPLOY;
+
             const response = await axios.post(
-                "http://127.0.0.1:8000/movies/add/",
+                `${API_BASE_URL}/movies/add/`,
                 data,
                 {
                     headers: {

@@ -5,6 +5,9 @@ import "../styles/MovieDetailsPage.css";
 import ReviewSection from "./ReviewSection";
 import { FaArrowLeft } from "react-icons/fa";  // Import the arrow icon
 
+import API_BASE_URL from "../config";  // Import API_BASE_URL
+
+
 function MovieDetailsPage() {
     const { id } = useParams();  // Get the movie ID from the URL
     const [movie, setMovie] = useState(null);
@@ -12,8 +15,13 @@ function MovieDetailsPage() {
     const navigate = useNavigate();  // Initialize useNavigate hook
 
     useEffect(() => {
+        const API_BASE_URL =
+            process.env.NODE_ENV === "development"
+                ? process.env.REACT_APP_API_URL_LOCALHOST
+                : process.env.REACT_APP_API_URL_DEPLOY;
+
         console.log("Fetching movie with ID:", id);
-        axios.get(`http://127.0.0.1:8000/movies/${id}/`)
+        axios.get(`${API_BASE_URL}/movies/${id}/`)
             .then((response) => {
                 console.log("Movie details response:", response.data);
                 setMovie(response.data);
@@ -26,17 +34,25 @@ function MovieDetailsPage() {
     }, [id]);
 
     const handleDelete = () => {
-        axios
-            .delete(`http://127.0.0.1:8000/movies/${id}/`)  // Correct API endpoint to delete the movie
+        if (!window.confirm("Are you sure you want to delete this movie?")) return;
+
+        const API_BASE_URL =
+            process.env.NODE_ENV === "development"
+                ? process.env.REACT_APP_API_URL_LOCALHOST
+                : process.env.REACT_APP_API_URL_DEPLOY;
+
+        axios.delete(`${API_BASE_URL}/movies/${id}/`)
             .then(() => {
                 alert("Movie deleted successfully");
-                navigate("/movies");  // Navigate back to the movie list page
+                navigate("/movies");
             })
             .catch((error) => {
                 console.error("Error deleting movie:", error);
                 alert("Failed to delete movie.");
             });
     };
+
+
 
     if (loading) {
         return (
@@ -82,7 +98,7 @@ function MovieDetailsPage() {
                 <h1 className="text-4xl font-bold mb-4">{movie.name}</h1>
                 <div className="poster">
                     <img
-                        src={`http://127.0.0.1:8000${movie.poster_image}`}
+                        src={`${API_BASE_URL}${movie.poster_image}`}
                         alt={movie.name}
                         className="w-full object-cover"
                     />
@@ -104,14 +120,17 @@ function MovieDetailsPage() {
                         <strong>Rating:</strong> {movie.rating}/10
                     </p>
                     <p className="text-gray-800 mb-4">{movie.description}</p>
-                    <a
-                        href={movie.trailer_video}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                    >
-                        Watch Trailer
-                    </a>
+
+                    {movie.trailer_video && (
+                        <a href={movie.trailer_video}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Watch Trailer
+                        </a>
+                    )}
+
                 </div>
                 {/* Review Section */}
                 <ReviewSection />

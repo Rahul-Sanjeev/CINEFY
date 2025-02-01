@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../styles/MoviesPage.css";
+import API_BASE_URL from "../config";  // Import API_BASE_URL
+
 
 function MoviesPage() {
     const [movies, setMovies] = useState([]);
@@ -10,8 +12,13 @@ function MoviesPage() {
     const navigate = useNavigate(); // Initialize navigate hook
 
     useEffect(() => {
+        const API_BASE_URL =
+            process.env.NODE_ENV === "development"
+                ? process.env.REACT_APP_API_URL_LOCALHOST
+                : process.env.REACT_APP_API_URL_DEPLOY;
+
         axios
-            .get("http://127.0.0.1:8000/movies/") // Fetch movie data from Django API
+            .get(`${API_BASE_URL}/movies/`) // Fetch movie data from Django API
             .then((response) => {
                 setMovies(response.data.movies_data);
                 setLoading(false);
@@ -55,7 +62,7 @@ function MoviesPage() {
                         <li key={movie.id}>
                             <Link to={`/movies/${movie.id}`} className="movie-card-link">
                                 <img
-                                    src={`http://127.0.0.1:8000/${movie.poster_image}`}
+                                    src={`${API_BASE_URL}${movie.poster_image}`}
                                     alt={movie.name}
                                     className="movie-poster"
                                 />

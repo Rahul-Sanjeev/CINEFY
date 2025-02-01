@@ -22,8 +22,13 @@ function ProfilePage() {
       }
 
       try {
+        const API_BASE_URL =
+          process.env.NODE_ENV === "development"
+            ? process.env.REACT_APP_API_URL_LOCALHOST
+            : process.env.REACT_APP_API_URL_DEPLOY;
+
         // Fetch current user details from the backend
-        const response = await axios.get("http://127.0.0.1:8000/users/current-user/", {
+        const response = await axios.get(`${API_BASE_URL}/users/current-user/`, {
           headers: {
             Authorization: `Token ${token}`, // Include the auth token in the request
           },

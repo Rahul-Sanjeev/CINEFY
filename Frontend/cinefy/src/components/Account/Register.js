@@ -32,7 +32,12 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post("http://127.0.0.1:8000/users/register/", {
+            const API_BASE_URL =
+                process.env.NODE_ENV === "development"
+                    ? process.env.REACT_APP_API_URL_LOCALHOST
+                    : process.env.REACT_APP_API_URL_DEPLOY;
+
+            const response = await axios.post(`${API_BASE_URL}/users/register/`, {
                 username,
                 first_name: firstName,
                 last_name: lastName,

@@ -19,11 +19,16 @@ function EditMoviePage() {
         trailer_video: "",
     });
     const [loading, setLoading] = useState(true);
-    const history = useNavigate(); // To navigate programmatically
+    const navigate = useNavigate(); // Use navigate instead of history
 
     useEffect(() => {
+        const API_BASE_URL =
+            process.env.NODE_ENV === "development"
+                ? process.env.REACT_APP_API_URL_LOCALHOST
+                : process.env.REACT_APP_API_URL_DEPLOY;
+
         axios
-            .get(`http://127.0.0.1:8000/movies/${id}/`)
+            .get(`${API_BASE_URL}/movies/${id}/`) // ✅ Use API_BASE_URL dynamically
             .then((response) => {
                 setMovie(response.data);
                 setLoading(false);
@@ -35,23 +40,23 @@ function EditMoviePage() {
             });
     }, [id]);
 
-
     // Handle form field changes
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         setMovie((prevMovie) => ({
             ...prevMovie,
-            [name]: files ? files[0] : value, // Use `files[0]` for file input
+            [name]: files ? files[0] : value, // Handle file input correctly
         }));
     };
 
-
-
-
-
     // Handle form submission to update the movie
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const API_BASE_URL =
+            process.env.NODE_ENV === "development"
+                ? process.env.REACT_APP_API_URL_LOCALHOST
+                : process.env.REACT_APP_API_URL_DEPLOY;
 
         const formData = new FormData();
         formData.append("name", movie.name);
@@ -62,36 +67,28 @@ function EditMoviePage() {
         formData.append("rating", movie.rating);
         formData.append("description", movie.description);
 
-        if (typeof movie.poster_image === "object") {
+        if (movie.poster_image && typeof movie.poster_image === "object") {
             formData.append("poster_image", movie.poster_image);
         }
 
         formData.append("trailer_video", movie.trailer_video);
 
-        axios
-            .put(`http://127.0.0.1:8000/movies/${id}/`, formData, {
+        try {
+            await axios.put(`${API_BASE_URL}/movies/${id}/`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-            })
-            .then(() => {
-                toast.success("Movie updated successfully!"); // Show toast
-                setTimeout(() => {
-                    history(`/movies/${id}`); // Navigate to movie details after success
-                }, 2000); // Delay for the toast to show
-
-            })
-            .catch((error) => {
-                console.error("Error updating movie:", error.response?.data || error.message);
-                toast.error("An error occurred while updating the movie.");
             });
+
+            toast.success("Movie updated successfully!"); // Show success message
+            setTimeout(() => {
+                navigate(`/movies/${id}`); // ✅ Use `navigate()` instead of `history.push()`
+            }, 2000); // Delay for the toast to show
+        } catch (error) {
+            console.error("Error updating movie:", error.response?.data || error.message);
+            toast.error("An error occurred while updating the movie.");
+        }
     };
-
-
-
-
-
-
 
     if (loading) {
         return (
@@ -103,13 +100,11 @@ function EditMoviePage() {
 
     return (
         <div className="container bg-gray-100 py-12 px-6 sm:px-12">
-            <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+            <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6">
                 <h1 className="text-4xl font-bold mb-4">Edit Movie</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700" htmlFor="name">
-                            Movie Name:
-                        </label>
+                        <label className="block text-gray-700">Movie Name:</label>
                         <input
                             type="text"
                             name="name"
@@ -119,9 +114,7 @@ function EditMoviePage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700" htmlFor="release_year">
-                            Release Year:
-                        </label>
+                        <label className="block text-gray-700">Release Year:</label>
                         <input
                             type="text"
                             name="release_year"
@@ -131,9 +124,7 @@ function EditMoviePage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700" htmlFor="director">
-                            Director:
-                        </label>
+                        <label className="block text-gray-700">Director:</label>
                         <input
                             type="text"
                             name="director"
@@ -143,9 +134,7 @@ function EditMoviePage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700" htmlFor="casts">
-                            Casts:
-                        </label>
+                        <label className="block text-gray-700">Casts:</label>
                         <input
                             type="text"
                             name="casts"
@@ -155,9 +144,7 @@ function EditMoviePage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700" htmlFor="genre">
-                            Genre:
-                        </label>
+                        <label className="block text-gray-700">Genre:</label>
                         <input
                             type="text"
                             name="genre"
@@ -167,9 +154,7 @@ function EditMoviePage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700" htmlFor="rating">
-                            Rating:
-                        </label>
+                        <label className="block text-gray-700">Rating:</label>
                         <input
                             type="number"
                             name="rating"
@@ -179,9 +164,7 @@ function EditMoviePage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700" htmlFor="description">
-                            Description:
-                        </label>
+                        <label className="block text-gray-700">Description:</label>
                         <textarea
                             name="description"
                             value={movie.description}
@@ -190,9 +173,7 @@ function EditMoviePage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700" htmlFor="poster_image">
-                            Movie Image:
-                        </label>
+                        <label className="block text-gray-700">Movie Image:</label>
                         <input
                             type="file"
                             name="poster_image"
@@ -201,9 +182,7 @@ function EditMoviePage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700" htmlFor="trailer_video">
-                            Trailer Video URL:
-                        </label>
+                        <label className="block text-gray-700">Trailer Video URL:</label>
                         <input
                             type="url"
                             name="trailer_video"
