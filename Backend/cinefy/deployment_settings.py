@@ -56,6 +56,11 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
+# Add these media configurations at the bottom
+MEDIA_URL = '/media/'  # URL prefix for media files
+# Local filesystem path to media directory
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STORAGES = {
     'default': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
@@ -64,6 +69,7 @@ STORAGES = {
         'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
     },
 }
+
 
 
 DATABASES = {
