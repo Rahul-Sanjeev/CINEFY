@@ -31,7 +31,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://cinefy-frontend.onrender.com',
-    'http://localhost:3000'  # For local development
+    'https://cinefy-backend-d1o0.onrender.com'  
 ]
 
 SESSION_COOKIE_SECURE = True
@@ -56,10 +56,8 @@ CORS_ALLOW_HEADERS = [
 ]
 
 # Add these media configurations at the bottom
-MEDIA_URL = '/media/'  # URL prefix for media files
-# Local filesystem path to media directory
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_ROOT = '/var/data/media'  # Render's persistent storage path
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 STORAGES = {
