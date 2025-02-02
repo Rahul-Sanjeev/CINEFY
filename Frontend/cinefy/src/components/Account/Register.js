@@ -61,9 +61,15 @@ const Register = () => {
 
         } catch (error) {
             if (error.response) {
-                setErrorMessage(error.response.data.detail || "Registration failed");
-                console.error(error.response);
-
+                console.log('Full error response:', error.response);
+                setErrorMessage(
+                    error.response.data.detail ||
+                    error.response.data.message ||
+                    "Registration failed"
+                );
+            } else {
+                console.log('Network error:', error);
+                setErrorMessage("Network error - check console");
             }
         } finally {
             setIsSubmitting(false);

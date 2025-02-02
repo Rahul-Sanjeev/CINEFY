@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import "../../styles/Auth.css";
 import API_BASE_URL from '../config';
+import "../../styles/Auth.css";
 
+// CSRF Helper function outside component
+const getCSRFToken = () => {
+    const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='))
+        ?.split('=')[1];
+    return cookieValue || '';
+};
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
-
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -18,36 +25,48 @@ const Login = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await axios.post(`${API_BASE_URL}/users/login/`, {
-                username,
-                password,
-            },
+            // Test backend connectivity first
+            await axios.get(`${API_BASE_URL}/health-check/`); // Add this endpoint in Django
+
+            const response = await axios.post(
+                `${API_BASE_URL}/users/login/`,
+                { username, password },
                 {
                     withCredentials: true,
                     headers: {
                         "Content-Type": "application/json",
-                    }
+                        "X-CSRFToken": getCSRFToken()
+                    },
+                    timeout: 10000 // Add timeout
                 }
             );
 
-            // Ensure the response contains the expected data
-            if (response.data && response.data.token && response.data.user && response.data.user.id) {
-                // Save token, user ID, and username to localStorage
+            if (response.data?.token) {
                 localStorage.setItem("authToken", response.data.token);
-                localStorage.setItem("userId", response.data.user.id);
-                localStorage.setItem("username", response.data.user.username); // Store username
+                axios.defaults.headers.common['Authorization'] = `Token ${response.data.token}`;
 
-                // Dispatch custom event to notify NavBar
+                // Store user data
+                localStorage.setItem("userId", response.data.user?.id);
+                localStorage.setItem("username", response.data.user?.username);
+
+                // Notify app and redirect
                 window.dispatchEvent(new Event("authChange"));
+                toast.success("Login successful!", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    onClose: () => navigate("/")
+                });
 
-                // Show success toast and navigate to home
-                toast.success("Login successful!", { position: "top-right", autoClose: 3000 });
-                navigate("/");
             } else {
-                toast.error("Invalid response from server.", { position: "top-right" });
+                toast.error("Authentication token missing", { position: "top-right" });
             }
+
         } catch (error) {
-            toast.error("Login failed! Please check your credentials.", { position: "top-right" });
+            if (error.code === "ECONNABORTED") {
+                toast.error("Connection timeout - check your internet");
+            } else if (!error.response) {
+                toast.error("Backend server unavailable");
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -63,6 +82,7 @@ const Login = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
+                    autoComplete="username"
                 />
                 <input
                     type="password"
@@ -70,9 +90,14 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    autoComplete="current-password"
                 />
-                <button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Logging in..." : "Login"}
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={isSubmitting ? "loading" : ""}
+                >
+                    {isSubmitting ? "Authenticating..." : "Login"}
                 </button>
             </form>
         </div>

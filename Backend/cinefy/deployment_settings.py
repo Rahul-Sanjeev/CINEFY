@@ -13,10 +13,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -25,17 +25,21 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = ['https://cinefy-react.onrender.com',
-                        'http://localhost:3000']
+CORS_ALLOWED_ORIGINS = [
+    'https://cinefy-react.onrender.com',
+    'http://localhost:3000'
+]
 
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_EXPOSE_HEADERS = ['Content-Type', 'Authorization']
+
+CORS_EXPOSE_HEADERS = ['Content-Type', 'Authorization', 'X-CSRFToken']
+
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
@@ -47,7 +51,6 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
-
 
 STORAGES = {
     'default': {
@@ -65,3 +68,9 @@ DATABASES = {
         conn_max_age=600
     )
 }
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://cinefy-react.onrender.com',
+    'http://localhost:3000'  # For local development
+]
