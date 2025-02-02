@@ -5,13 +5,16 @@ import axios from "axios";
 import API_BASE_URL from '../config';
 import "../../styles/Auth.css";
 
-// CSRF Helper function outside component
+
 const getCSRFToken = () => {
-    const cookieValue = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('csrftoken='))
-        ?.split('=')[1];
-    return cookieValue || '';
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'csrftoken') {
+            return decodeURIComponent(value); // Add URI decoding
+        }
+    }
+    return '';
 };
 
 const Login = () => {
