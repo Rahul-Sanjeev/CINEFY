@@ -25,15 +25,14 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://cinefy-react.onrender.com',
+    'https://cinefy-frontend.onrender.com',
     'http://localhost:3000'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://cinefy-react.onrender.com',
+    'https://cinefy-frontend.onrender.com',
     'http://localhost:3000'  # For local development
 ]
-
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -59,18 +58,21 @@ CORS_ALLOW_HEADERS = [
 # Add these media configurations at the bottom
 MEDIA_URL = '/media/'  # URL prefix for media files
 # Local filesystem path to media directory
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/var/data/media'  # Render's persistent storage path
+
 
 STORAGES = {
     'default': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'OPTIONS': {
+            'location': '/var/data/media',  # Render persistent storage
+        },
     },
     'staticfiles': {
         'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
     },
 }
-
-
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -78,7 +80,6 @@ DATABASES = {
         conn_max_age=600
     )
 }
-
 
 # Add these security headers
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
