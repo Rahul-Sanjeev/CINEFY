@@ -62,6 +62,7 @@ const Register = () => {
             navigate('/login'); // Redirect to the login page
 
         } catch (error) {
+            console.error(error); // Log the entire error to see what you get
             if (error.response) {
                 // Handle field-specific errors (e.g., username taken)
                 const errors = error.response.data;

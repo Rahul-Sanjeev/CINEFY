@@ -44,6 +44,7 @@ const Login = () => {
                 toast.error("Invalid response from server.", { position: "top-right" });
             }
         } catch (error) {
+            console.error(error); // Log the entire error to see what you get
             toast.error("Login failed! Please check your credentials.", { position: "top-right" });
         } finally {
             setIsSubmitting(false);
