@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../../styles/Auth.css";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from '../config';
 
 
 const Register = () => {
@@ -32,16 +33,6 @@ const Register = () => {
         }
 
         try {
-            const API_BASE_URL =
-                process.env.NODE_ENV === "development"
-                    ? process.env.REACT_APP_API_URL_LOCALHOST
-                    : process.env.REACT_APP_API_URL_DEPLOY;
-
-            // Get CSRF token to include in the request header
-            const getCsrfToken = async () => {
-                await axios.get(`${API_BASE_URL}/csrf-token/`, { withCredentials: true });
-            };
-            await getCsrfToken();
             const response = await axios.post(`${API_BASE_URL}/users/register/`, {
                 username,
                 first_name: firstName,
@@ -49,7 +40,14 @@ const Register = () => {
                 email,
                 password,
                 password2,
-            });
+            },
+                { // Proper axios config position
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }
+            );
 
             setSuccessMessage(response.data.message);
             setUsername("");
@@ -62,18 +60,10 @@ const Register = () => {
             navigate('/login'); // Redirect to the login page
 
         } catch (error) {
-            console.error(error); // Log the entire error to see what you get
             if (error.response) {
-                // Handle field-specific errors (e.g., username taken)
-                const errors = error.response.data;
-                if (typeof errors === 'object') {
-                    const errorMsgs = Object.values(errors).flat().join(' ');
-                    setErrorMessage(errorMsgs);
-                } else {
-                    setErrorMessage(errors.detail || "Registration failed");
-                }
-            } else {
-                setErrorMessage("Network error. Please try again.");
+                setErrorMessage(error.response.data.detail || "Registration failed");
+                console.error(error.response);
+
             }
         } finally {
             setIsSubmitting(false);

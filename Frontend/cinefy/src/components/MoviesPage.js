@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../styles/MoviesPage.css";
-import API_BASE_URL from "../config";  // Import API_BASE_URL
+import API_BASE_URL from './config'  // Import API_BASE_URL
 
 
 function MoviesPage() {
@@ -12,11 +12,6 @@ function MoviesPage() {
     const navigate = useNavigate(); // Initialize navigate hook
 
     useEffect(() => {
-        const API_BASE_URL =
-            process.env.NODE_ENV === "development"
-                ? process.env.REACT_APP_API_URL_LOCALHOST
-                : process.env.REACT_APP_API_URL_DEPLOY;
-
         axios
             .get(`${API_BASE_URL}/movies/`) // Fetch movie data from Django API
             .then((response) => {

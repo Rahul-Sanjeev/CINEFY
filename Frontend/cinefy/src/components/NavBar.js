@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/NavBar.css";
 import { Link, useNavigate } from "react-router-dom";
 
+
 function NavBar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();

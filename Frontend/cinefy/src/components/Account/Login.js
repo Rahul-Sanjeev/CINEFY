@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import "../../styles/Auth.css";
+import API_BASE_URL from '../config';
 
 
 const Login = () => {
@@ -17,15 +18,17 @@ const Login = () => {
         setIsSubmitting(true);
 
         try {
-            const API_BASE_URL =
-                process.env.NODE_ENV === "development"
-                    ? process.env.REACT_APP_API_URL_LOCALHOST
-                    : process.env.REACT_APP_API_URL_DEPLOY;
-
             const response = await axios.post(`${API_BASE_URL}/users/login/`, {
                 username,
                 password,
-            });
+            },
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }
+            );
 
             // Ensure the response contains the expected data
             if (response.data && response.data.token && response.data.user && response.data.user.id) {
@@ -44,7 +47,6 @@ const Login = () => {
                 toast.error("Invalid response from server.", { position: "top-right" });
             }
         } catch (error) {
-            console.error(error); // Log the entire error to see what you get
             toast.error("Login failed! Please check your credentials.", { position: "top-right" });
         } finally {
             setIsSubmitting(false);

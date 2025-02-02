@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import "../styles/EditMoviePage.css";
+import API_BASE_URL from './config';
 
 function EditMoviePage() {
     const { id } = useParams(); // Get the movie ID from the URL
@@ -22,11 +23,6 @@ function EditMoviePage() {
     const navigate = useNavigate(); // Use navigate instead of history
 
     useEffect(() => {
-        const API_BASE_URL =
-            process.env.NODE_ENV === "development"
-                ? process.env.REACT_APP_API_URL_LOCALHOST
-                : process.env.REACT_APP_API_URL_DEPLOY;
-
         axios
             .get(`${API_BASE_URL}/movies/${id}/`) // ✅ Use API_BASE_URL dynamically
             .then((response) => {
@@ -52,11 +48,6 @@ function EditMoviePage() {
     // Handle form submission to update the movie
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const API_BASE_URL =
-            process.env.NODE_ENV === "development"
-                ? process.env.REACT_APP_API_URL_LOCALHOST
-                : process.env.REACT_APP_API_URL_DEPLOY;
 
         const formData = new FormData();
         formData.append("name", movie.name);

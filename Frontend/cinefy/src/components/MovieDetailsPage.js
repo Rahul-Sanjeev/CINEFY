@@ -4,8 +4,7 @@ import axios from "axios";
 import "../styles/MovieDetailsPage.css";
 import ReviewSection from "./ReviewSection";
 import { FaArrowLeft } from "react-icons/fa";  // Import the arrow icon
-
-import API_BASE_URL from "../config";  // Import API_BASE_URL
+import API_BASE_URL from './config';  // Import API_BASE_URL
 
 
 function MovieDetailsPage() {
@@ -15,10 +14,6 @@ function MovieDetailsPage() {
     const navigate = useNavigate();  // Initialize useNavigate hook
 
     useEffect(() => {
-        const API_BASE_URL =
-            process.env.NODE_ENV === "development"
-                ? process.env.REACT_APP_API_URL_LOCALHOST
-                : process.env.REACT_APP_API_URL_DEPLOY;
 
         console.log("Fetching movie with ID:", id);
         axios.get(`${API_BASE_URL}/movies/${id}/`)
@@ -35,11 +30,6 @@ function MovieDetailsPage() {
 
     const handleDelete = () => {
         if (!window.confirm("Are you sure you want to delete this movie?")) return;
-
-        const API_BASE_URL =
-            process.env.NODE_ENV === "development"
-                ? process.env.REACT_APP_API_URL_LOCALHOST
-                : process.env.REACT_APP_API_URL_DEPLOY;
 
         axios.delete(`${API_BASE_URL}/movies/${id}/`)
             .then(() => {

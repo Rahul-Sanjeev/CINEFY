@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/ProfilePage.css"; // Add your custom styles
+import API_BASE_URL from './config'
 
 function ProfilePage() {
   const [user, setUser] = useState(null); // State to store user details
@@ -22,11 +23,6 @@ function ProfilePage() {
       }
 
       try {
-        const API_BASE_URL =
-          process.env.NODE_ENV === "development"
-            ? process.env.REACT_APP_API_URL_LOCALHOST
-            : process.env.REACT_APP_API_URL_DEPLOY;
-
         // Fetch current user details from the backend
         const response = await axios.get(`${API_BASE_URL}/users/current-user/`, {
           headers: {
