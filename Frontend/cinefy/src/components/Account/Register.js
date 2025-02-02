@@ -37,6 +37,11 @@ const Register = () => {
                     ? process.env.REACT_APP_API_URL_LOCALHOST
                     : process.env.REACT_APP_API_URL_DEPLOY;
 
+            // Get CSRF token to include in the request header
+            const getCsrfToken = async () => {
+                await axios.get(`${API_BASE_URL}/csrf-token/`, { withCredentials: true });
+            };
+            await getCsrfToken();
             const response = await axios.post(`${API_BASE_URL}/users/register/`, {
                 username,
                 first_name: firstName,
@@ -58,9 +63,16 @@ const Register = () => {
 
         } catch (error) {
             if (error.response) {
-                setErrorMessage(error.response.data.detail || "Registration failed");
-                console.error(error.response);
-
+                // Handle field-specific errors (e.g., username taken)
+                const errors = error.response.data;
+                if (typeof errors === 'object') {
+                    const errorMsgs = Object.values(errors).flat().join(' ');
+                    setErrorMessage(errorMsgs);
+                } else {
+                    setErrorMessage(errors.detail || "Registration failed");
+                }
+            } else {
+                setErrorMessage("Network error. Please try again.");
             }
         } finally {
             setIsSubmitting(false);
