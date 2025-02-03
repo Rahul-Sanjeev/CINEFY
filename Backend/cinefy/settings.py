@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles',  # Keep only ONE instance of this
     # Custom apps
     'users',
     'movies',
@@ -33,9 +33,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'whitenoise.runserver_nostatic',
     # Cloudinary apps
-    'cloudinary_storage',
-    'django.contrib.staticfiles',
-    'cloudinary',
+    'cloudinary_storage',  # Keep these
+    'cloudinary',          # in order
 ]
 
 MIDDLEWARE = [

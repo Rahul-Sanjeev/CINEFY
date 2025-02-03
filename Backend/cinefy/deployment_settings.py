@@ -78,16 +78,11 @@ SECURE_SSL_REDIRECT = True
 USE_X_FORWARDED_HOST = True
 
 
-# Cloudinary for Image storage
-
-# Add to INSTALLED_APPS
-INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
-
 # Cloudinary Configuration
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
+    'CLOUD_NAME': 'dcawvceij',
+    'API_KEY': '891783998484189',
+    'API_SECRET': 'gDejfN2rc0q4ILgCFidML45se0c'
 }
 
 # Update DEFAULT_FILE_STORAGE to use Cloudinary Storage
