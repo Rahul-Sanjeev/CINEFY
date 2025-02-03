@@ -56,8 +56,13 @@ function MoviesPage() {
                     {movies.map((movie) => (
                         <li key={movie.id}>
                             <Link to={`/movies/${movie.id}`} className="movie-card-link">
-                                <img
+                                {/* <img
                                     src={`${API_BASE_URL}${movie.poster_image}`}
+                                    alt={movie.name}
+                                    className="movie-poster"
+                                /> */}
+                                <img
+                                    src={movie.poster_image}
                                     alt={movie.name}
                                     className="movie-poster"
                                 />
