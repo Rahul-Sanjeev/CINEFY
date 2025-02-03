@@ -55,17 +55,10 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-# Add these media configurations at the bottom
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 STORAGES = {
     'default': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
-        'OPTIONS': {
-            'location': '/var/data/media',  # Render persistent storage
-        },
     },
     'staticfiles': {
         'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
@@ -83,3 +76,20 @@ DATABASES = {
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 USE_X_FORWARDED_HOST = True
+
+
+# Cloudinary for Image storage
+
+# Add to INSTALLED_APPS
+INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
+
+# Cloudinary Configuration
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
+}
+
+# Update DEFAULT_FILE_STORAGE to use Cloudinary Storage
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+

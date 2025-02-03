@@ -18,7 +18,7 @@ function AddMovies() {
         description: "",
         poster_image: null,
         trailer_video: "",
-        rating: "", // Add rating field
+        rating: "", 
     });
 
     const navigate = useNavigate();
@@ -51,6 +51,7 @@ function AddMovies() {
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
+                        "Authorization": `Token ${localStorage.getItem('authToken')}`
                     },
                 }
             );
