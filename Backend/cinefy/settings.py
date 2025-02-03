@@ -130,8 +130,20 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:3000',
                         'https://cinefy-frontend.onrender.com']
 
 
-# Cloudinary configuration
-if not os.environ.get('RENDER'):
+# Cloudinary configuration (works for both environments)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'rahulsanjeev'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '779534668767349'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'mhdY06TBcdzQu-MCBl4rQ9cQA8k')
+}
+
+# Auto-configure storage based on environment
+if os.environ.get('RENDER'):
+    # Production settings
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    MEDIA_URL = '/media/'  # Not used in production, but defined for safety
+else:
+    # Development settings
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'

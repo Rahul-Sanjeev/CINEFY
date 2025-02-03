@@ -62,10 +62,11 @@ function MoviesPage() {
                                     className="movie-poster"
                                 /> */}
                                 <img
-                                    src={movie.poster_image}
+                                    src={movie.poster_image_url}
                                     alt={movie.name}
                                     className="movie-poster"
                                 />
+
                                 <div className="movie-content">
                                     <h2>{movie.name} ({movie.release_year})</h2>
                                 </div>

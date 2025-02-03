@@ -1,3 +1,4 @@
+from cloudinary_storage.storage import MediaCloudinaryStorage
 from django.conf import settings  # Import settings to use AUTH_USER_MODEL
 from django.db import models
 
@@ -13,7 +14,12 @@ class Movie(models.Model):
     rating = models.FloatField()
     description = models.TextField()
     poster_image = models.ImageField(
-        upload_to='posters/', null=True, blank=True)  # Image field
+        upload_to='posters/',
+        null=True,
+        blank=True,
+        storage=MediaCloudinaryStorage()
+    )
+
     trailer_video = models.URLField()
 
     def __str__(self):

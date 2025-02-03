@@ -1,19 +1,25 @@
+from django.conf import settings
 from rest_framework import serializers
 
 from .models import Movie, Review
-from django.conf import settings
 
 
 class MovieSerializer(serializers.ModelSerializer):
+    poster_image = serializers.ImageField(
+        max_length=None,
+        use_url=True,
+        required=False
+    )
+
     class Meta:
         model = Movie
         fields = '__all__'  # Or specify the fields you want to include
         
-    def get_poster_image(self, obj):
-        if settings.DEBUG:  # Local development
-            return self.context['request'].build_absolute_uri(obj.poster_image.url)
-        else:  # Production (Cloudinary)
+    def get_poster_image_url(self, obj):
+        if obj.poster_image:
+            # Returns Cloudinary URL in production, local URL in development
             return obj.poster_image.url
+        return None
 
 
 class ReviewSerializer(serializers.ModelSerializer):

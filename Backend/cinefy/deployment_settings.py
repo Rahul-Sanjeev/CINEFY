@@ -1,5 +1,10 @@
 import os
 
+import cloudinary
+# Import the cloudinary.api for managing assets
+import cloudinary.api
+# Import the cloudinary.uploader for uploading assets
+import cloudinary.uploader
 import dj_database_url
 
 from .settings import *
@@ -31,7 +36,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://cinefy-frontend.onrender.com',
-    'https://cinefy-backend-d1o0.onrender.com'  
+    'https://cinefy-backend-d1o0.onrender.com'
 ]
 
 SESSION_COOKIE_SECURE = True
@@ -56,14 +61,6 @@ CORS_ALLOW_HEADERS = [
 ]
 
 
-STORAGES = {
-    'default': {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
-    },
-    'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
-    },
-}
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -80,11 +77,9 @@ USE_X_FORWARDED_HOST = True
 
 # Cloudinary Configuration
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dcawvceij',
-    'API_KEY': '891783998484189',
-    'API_SECRET': 'gDejfN2rc0q4ILgCFidML45se0c'
+    'CLOUD_NAME': 'rahulsanjeev',
+    'API_KEY': '779534668767349',
+    'API_SECRET': 'mhdY06TBcdzQu-MCBl4rQ9cQA8k'
 }
-
-# Update DEFAULT_FILE_STORAGE to use Cloudinary Storage
+# Cloudinary configuration (inherited from base settings)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
