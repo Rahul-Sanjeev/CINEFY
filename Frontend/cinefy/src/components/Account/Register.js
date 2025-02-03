@@ -17,6 +17,11 @@ const Register = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
     const handleRegister = async (e) => {
         e.preventDefault();
         if (isSubmitting) return;
@@ -85,44 +90,50 @@ const Register = () => {
             <form onSubmit={handleRegister}>
                 <input
                     type="text"
+                    name="username"
                     placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={formData.username}
+                    onChange={handleInputChange}
                     required
                 />
                 <input
                     type="text"
+                    name="firstName"
                     placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    value={formData.firstName}
+                    onChange={handleInputChange}
                     required
                 />
                 <input
                     type="text"
+                    name="lastName"
                     placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    value={formData.lastName}
+                    onChange={handleInputChange}
                     required
                 />
                 <input
                     type="email"
+                    name="email"
                     placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={formData.email}
+                    onChange={handleInputChange}
                     required
                 />
                 <input
                     type="password"
+                    name="password"
                     placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={formData.password}
+                    onChange={handleInputChange}
                     required
                 />
                 <input
                     type="password"
+                    name="password2"
                     placeholder="Confirm Password"
-                    value={password2}
-                    onChange={(e) => setPassword2(e.target.value)}
+                    value={formData.password2}
+                    onChange={handleInputChange}
                     required
                 />
                 <button type="submit" disabled={isSubmitting}>

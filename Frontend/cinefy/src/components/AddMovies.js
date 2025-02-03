@@ -87,7 +87,7 @@ function AddMovies() {
                 Back
             </button>
             <h1 className="add-movie-title" style={{ color: "#2663EB" }}>Add a New Movie</h1>
-            <ToastContainer position="top-right" autoClose={5000} />
+            <ToastContainer position="top-right" autoClose={1000} />
             <form onSubmit={handleSubmit} className="add-movie-form">
                 <input
                     type="text"

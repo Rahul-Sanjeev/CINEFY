@@ -47,6 +47,9 @@ const Login = () => {
                 // Update axios defaults once
                 axios.defaults.headers.common['Authorization'] = `Token ${data.token}`;
 
+                // Notify all components about auth state change
+                window.dispatchEvent(new Event("authChange"));
+
                 toast.update(toastId, {
                     render: "Login successful!",
                     type: "success",
