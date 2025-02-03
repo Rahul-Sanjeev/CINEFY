@@ -1,9 +1,8 @@
 import os
+import re  # Add this import
 
 import cloudinary
-# Import the cloudinary.api for managing assets
 import cloudinary.api
-# Import the cloudinary.uploader for uploading assets
 import cloudinary.uploader
 import dj_database_url
 
@@ -13,13 +12,11 @@ ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
 CSRF_TRUSTED_ORIGIN = ['https://'+os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
 
 DEBUG = False
-
 SECRET_KEY = os.environ.get('SECRET_KEY')
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Must be after SecurityMiddleware
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -45,7 +42,6 @@ SESSION_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SAMESITE = 'None'
 
 CORS_ALLOW_CREDENTIALS = True
-
 CORS_EXPOSE_HEADERS = ['Content-Type', 'Authorization', 'X-CSRFToken']
 
 CORS_ALLOW_HEADERS = [
@@ -60,8 +56,6 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-
-
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
@@ -69,17 +63,35 @@ DATABASES = {
     )
 }
 
-# Add these security headers
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 USE_X_FORWARDED_HOST = True
 
+# ======= CLOUDINARY CONFIG (UPDATED) ======= #
+if os.environ.get('CLOUDINARY_URL'):
+    # Parse credentials from CLOUDINARY_URL
+    cloudinary_url = os.environ['CLOUDINARY_URL']
+    api_key_secret, cloud_name = cloudinary_url.split('@')
+    api_key, api_secret = api_key_secret.split('//')[1].split(':')
 
-# Cloudinary Configuration
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'rahulsanjeev',
-    'API_KEY': '779534668767349',
-    'API_SECRET': 'mhdY06TBcdzQu-MCBl4rQ9cQA8k'
-}
-# Cloudinary configuration (inherited from base settings)
+    # Configure Cloudinary SDK
+    cloudinary.config(
+        cloud_name=cloud_name,
+        api_key=api_key,
+        api_secret=api_secret
+    )
+
+    # Configure Django Cloudinary Storage
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': cloud_name,
+        'API_KEY': api_key,
+        'API_SECRET': api_secret
+    }
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Local file storage for development
+if not os.environ.get('RENDER'):
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'

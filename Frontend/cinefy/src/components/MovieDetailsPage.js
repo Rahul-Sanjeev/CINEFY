@@ -87,11 +87,17 @@ function MovieDetailsPage() {
                 </button>
                 <h1 className="text-4xl font-bold mb-4">{movie.name}</h1>
                 <div className="poster">
+
                     <img
-                        src={`${API_BASE_URL}${movie.poster_image}`}
+                        src={
+                            movie.poster_image.startsWith('http')
+                                ? movie.poster_image
+                                : `${API_BASE_URL}${movie.poster_image}`
+                        }
                         alt={movie.name}
                         className="w-full object-cover"
                     />
+
                 </div>
                 <div className="p-6">
                     <p className="text-gray-600 mb-2">

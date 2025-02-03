@@ -5,11 +5,7 @@ from .models import Movie, Review
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    poster_image = serializers.ImageField(
-        max_length=None,
-        use_url=True,
-        required=False
-    )
+    poster_image = serializers.ImageField(use_url=True)
 
     class Meta:
         model = Movie

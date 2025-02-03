@@ -62,7 +62,11 @@ function MoviesPage() {
                                     className="movie-poster"
                                 /> */}
                                 <img
-                                    src={movie.poster_image_url}
+                                    src={
+                                        movie.poster_image.startsWith('http')
+                                            ? movie.poster_image
+                                            : `${API_BASE_URL}${movie.poster_image}`
+                                    }
                                     alt={movie.name}
                                     className="movie-poster"
                                 />

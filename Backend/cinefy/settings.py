@@ -133,8 +133,8 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:3000',
 # Cloudinary configuration (works for both environments)
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'rahulsanjeev'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '779534668767349'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'mhdY06TBcdzQu-MCBl4rQ9cQA8k')
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '891783998484189'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'gDejfN2rc0q4ILgCFidML45se0c')
 }
 
 # Auto-configure storage based on environment
