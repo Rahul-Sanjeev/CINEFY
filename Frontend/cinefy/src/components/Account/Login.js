@@ -77,6 +77,29 @@ const Login = () => {
             <h1>Login</h1>
             <form onSubmit={handleLogin}>
                 {/* Keep existing form fields */}
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    autoComplete="username"
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    autoComplete="current-password"
+                />
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={isSubmitting ? "loading" : ""}
+                >
+                    {isSubmitting ? "Authenticating..." : "Login"}
+                </button>
             </form>
         </div>
     );

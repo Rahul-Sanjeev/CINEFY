@@ -83,7 +83,51 @@ const Register = () => {
         <div className="form-container">
             <h1>Register</h1>
             <form onSubmit={handleRegister}>
-                {/* Keep existing form fields */}
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={password2}
+                    onChange={(e) => setPassword2(e.target.value)}
+                    required
+                />
+                <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Registering..." : "Register"}
+                </button>
             </form>
         </div>
     );
