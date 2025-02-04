@@ -41,7 +41,7 @@ const ReviewSection = () => {
             return;
         }
         if (newReview.rating < 0 || newReview.rating > 10) {
-            toast.error("Rating must be between 0 and 5.");
+            toast.error("Rating must be between 0 and 10.");
             return;
         }
 
