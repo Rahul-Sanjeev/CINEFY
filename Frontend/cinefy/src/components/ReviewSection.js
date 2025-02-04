@@ -40,7 +40,7 @@ const ReviewSection = () => {
             toast.error("Review cannot be empty.");
             return;
         }
-        if (newReview.rating < 0 || newReview.rating > 5) {
+        if (newReview.rating < 0 || newReview.rating > 10) {
             toast.error("Rating must be between 0 and 5.");
             return;
         }
@@ -124,13 +124,13 @@ const ReviewSection = () => {
 
                     return (
                         <div key={review.id} className="border p-4 rounded-lg shadow-md bg-white my-2">
-                            <div className="flex items-center space-x-3">
+                            <div className="inline-flex items-center space-x-6 mb-3">
                                 <img
                                     src={`https://ui-avatars.com/api/?name=${review.user}`}
                                     alt="User Avatar"
                                     className="w-10 h-10 rounded-full"
                                 />
-                                <p className="font-semibold">{review.user}</p>
+                                <p className="font-semibold ml-3">{review.user}</p>
                             </div>
                             <p className="text-gray-700">{review.comments}</p>
                             <p className="text-yellow-500">⭐ {review.rating}</p>
@@ -172,13 +172,14 @@ const ReviewSection = () => {
                     className="w-full p-2 border rounded-lg mt-2"
                     aria-label="Review Comments"
                 />
+                <h4 className="text-lg font-semibold"> Add Rating (0-10)</h4>
                 <input
                     type="number"
-                    value={newReview.rating}
-                    onChange={(e) => setNewReview({ ...newReview, rating: Number(e.target.value) })}
-                    placeholder="Rating (0-5)"
+                    value={newReview.rating === 0 ? "" : newReview.rating}
+                    onChange={(e) => setNewReview({ ...newReview, rating: e.target.value === "" ? 0 : Number(e.target.value) })}
+                    placeholder="Rating (0-10)"
                     min={0}
-                    max={5}
+                    max={10}
                     step={0.1}
                     required
                     className="w-full p-2 border rounded-lg mt-2"
