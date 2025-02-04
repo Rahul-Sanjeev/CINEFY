@@ -6,6 +6,11 @@ from django.db import models
 
 
 class Movie(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='movies'
+    )
     name = models.CharField(max_length=255)
     release_year = models.CharField(max_length=4)
     director = models.CharField(max_length=255)
@@ -19,8 +24,8 @@ class Movie(models.Model):
         blank=True,
         storage=MediaCloudinaryStorage()
     )
-
     trailer_video = models.URLField()
+
 
     def __str__(self):
         return self.name

@@ -33,6 +33,7 @@ class MovieListView(APIView):
 # Movie Detail View (GET single movie)
 class MovieDetailView(APIView):
     parser_classes = [MultiPartParser, FormParser]  # Add this line
+    permission_classes = [IsAuthenticated]  # Require authentication
 
     def get(self, request, id):  # id is passed from the URL
         try:
@@ -46,8 +47,12 @@ class MovieDetailView(APIView):
     def put(self, request, id):
         try:
             movie = Movie.objects.get(pk=id)
+            if movie.user != request.user:  # Ownership check
+                return Response({"error": "You don't have permission to edit this movie"},
+                                status=status.HTTP_403_FORBIDDEN)
             serializer = MovieSerializer(
                 movie, data=request.data, partial=True)
+
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
@@ -55,10 +60,12 @@ class MovieDetailView(APIView):
         except Movie.DoesNotExist:
             return Response({"error": "Movie not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    def delete(self, request, id):  # id is passed from the URL
+    def delete(self, request, id):
         try:
-            # Use `pk` for querying the database
             movie = Movie.objects.get(pk=id)
+            if movie.user != request.user:  # Ownership check
+                return Response({"error": "You don't have permission to delete this movie"},
+                                status=status.HTTP_403_FORBIDDEN)
             movie.delete()
             return Response({"message": "Movie deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
         except Movie.DoesNotExist:
@@ -67,14 +74,24 @@ class MovieDetailView(APIView):
 
 # Add Movie View (POST to create a new movie)
 class AddMovieView(APIView):
-    parser_classes = [MultiPartParser, FormParser]  # Handle file uploads
+    parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [IsAuthenticated]  # Require login to add movies
 
     def post(self, request):
-        serializer = MovieSerializer(data=request.data)
+        serializer = MovieSerializer(
+            data=request.data,
+            context={'request': request}  # Pass request context
+        )
         if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Movie added successfully!"}, status=status.HTTP_201_CREATED)
-        return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            serializer.save()  # User will be set automatically via create()
+            return Response(
+                {"message": "Movie added successfully!"},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {"error": serializer.errors},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 # Update Movie View (PUT to update an existing movie)

@@ -61,8 +61,6 @@ function MovieDetailsPage() {
     }
 
     return (
-
-
         <div className="container bg-gray-100 py-12 px-6 sm:px-12">
             <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
                 {/* Back Button with Arrow Icon */}
@@ -126,26 +124,26 @@ function MovieDetailsPage() {
                             Watch Trailer
                         </a>
                     )}
-
                 </div>
+                {/* Edit and Delete Buttons */}
+                {movie.user === parseInt(localStorage.getItem('userId')) && (
+                    <div className="p-6 flex justify-between">
+                        <button
+                            onClick={() => navigate(`/editmovie/${id}`)}
+                            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        >
+                            Edit Movie
+                        </button>
+                        <button
+                            onClick={handleDelete}
+                            className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                        >
+                            Delete Movie
+                        </button>
+                    </div>
+                )}
                 {/* Review Section */}
                 <ReviewSection />
-
-                {/* Edit and Delete Buttons */}
-                <div className="p-6 flex justify-between">
-                    <button
-                        onClick={() => navigate(`/editmovie/${id}`)}  // Navigate to Edit page
-                        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                    >
-                        Edit Movie
-                    </button>
-                    <button
-                        onClick={handleDelete}
-                        className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                    >
-                        Delete Movie
-                    </button>
-                </div>
             </div>
         </div>
     );
