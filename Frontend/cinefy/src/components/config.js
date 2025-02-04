@@ -6,7 +6,7 @@
 
 
 const API_BASE_URL = process.env.NODE_ENV === 'development'
-    ? 'http://127.0.0.1:8000'
+    ? 'http://127.0.0.1:8000/'
     : 'https://cinefy-backend-d1o0.onrender.com';
 
 export default API_BASE_URL;

@@ -67,7 +67,7 @@ function MovieDetailsPage() {
             <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
                 {/* Back Button with Arrow Icon */}
                 <button
-                    onClick={() => navigate(-1)} // Go back to the previous page
+                    onClick={() => navigate('/movies')} // Go back to the previous page
                     style={{
                         backgroundColor: '#6A7081',
                         color: 'white',
