@@ -13,6 +13,7 @@ function MovieDetailsPage() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();  // Initialize useNavigate hook
 
+
     useEffect(() => {
 
         console.log("Fetching movie with ID:", id);
@@ -126,6 +127,7 @@ function MovieDetailsPage() {
                     )}
                 </div>
                 {/* Edit and Delete Buttons */}
+                
                 {movie.user === parseInt(localStorage.getItem('userId')) && (
                     <div className="p-6 flex justify-between">
                         <button

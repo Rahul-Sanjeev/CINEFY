@@ -83,7 +83,8 @@ class AddMovieView(APIView):
             context={'request': request}  # Pass request context
         )
         if serializer.is_valid():
-            serializer.save()  # User will be set automatically via create()
+            # User will be set automatically via create()
+            serializer.save(user=request.user)
             return Response(
                 {"message": "Movie added successfully!"},
                 status=status.HTTP_201_CREATED
