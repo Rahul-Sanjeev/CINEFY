@@ -16,7 +16,12 @@ python Backend/manage.py migrate
 # ======= CREATE_SUPERUSER ======= #
 if [[ $CREATE_SUPERUSER ]];
 then
-    echo "Creating superuser"
-    python Backend/manage.py createsuperuser --no-input
-    echo "=== Superuser created ==="
+    echo "Checking for existing superuser..."
+    if ! python Backend/manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); print(User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists())" | grep -q "True"; then
+        echo "Creating superuser..."
+        python Backend/manage.py createsuperuser --no-input
+        echo "=== Superuser created ==="
+    else
+        echo "Superuser already exists. Skipping creation."
+    fi
 fi
