@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import API_BASE_URL from '../config';
 import "../../styles/Auth.css";
+import Loader from "../loader"
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -99,6 +100,7 @@ const Register = () => {
         }
 
         setIsSubmitting(true);
+        
         const toastId = toast.loading("Registering...");
 
         try {
@@ -216,7 +218,7 @@ const Register = () => {
 
                 {/* Submit Button */}
                 <button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Registering..." : "Register"}
+                    {isSubmitting ? <Loader size={20} /> : "Register"}
                 </button>
             </form>
         </div>

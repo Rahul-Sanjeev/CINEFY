@@ -5,6 +5,7 @@ import axios from "axios";
 import API_BASE_URL from '../config';
 import "../../styles/Auth.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Loader from "../loader"
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -168,7 +169,7 @@ const Login = () => {
                     disabled={isSubmitting}
                     className={isSubmitting ? "loading" : ""}
                 >
-                    {isSubmitting ? "Authenticating..." : "Login"}
+                    {isSubmitting ? <Loader size={20} /> : "Login"}
                 </button>
 
                 {errors.password && (

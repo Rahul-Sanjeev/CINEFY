@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "../styles/MoviesPage.css";
 import API_BASE_URL from './config'  // Import API_BASE_URL
+import Loader from "./loader"
 
 
 function MoviesPage() {
@@ -33,7 +34,7 @@ function MoviesPage() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
-                <div className="text-xl text-gray-700">Loading Movies...</div>
+                <div className="text-xl text-gray-700"><Loader size={40} color="#36D7B7" />Loading Movies...</div>
             </div>
         );
     }

@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import API_BASE_URL from './config'
 
+
 const ReviewSection = () => {
     const { id: movieId } = useParams();
     const [reviews, setReviews] = useState([]);
