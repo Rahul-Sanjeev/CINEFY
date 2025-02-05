@@ -72,3 +72,19 @@
     background-color: #fee2e2;
     color: #b91c1c;
 }
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+    /* Space between spinner and text */
+    border: 1px solid red;
+}
+
+.loading-spinner p {
+    margin: 0;
+    font-size: 16px;
+    color: #2663EB;
+}

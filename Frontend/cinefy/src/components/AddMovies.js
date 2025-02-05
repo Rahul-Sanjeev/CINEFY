@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/AddMovies.css";
 import { FaArrowLeft } from "react-icons/fa"; 
 import API_BASE_URL from './config';
-
+import { ClipLoader } from "react-spinners";
 
 function AddMovies() {
     const [formData, setFormData] = useState({
@@ -21,6 +21,9 @@ function AddMovies() {
         rating: "", 
     });
 
+
+    const [isLoading, setIsLoading] = useState(false); // New state for loading
+
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -34,6 +37,23 @@ function AddMovies() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Disable the submit button and show loading state
+        setIsLoading(true);
+
+        // Show the loading toast
+        const loadingToastId = toast.info(
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <ClipLoader color="#2663EB" size={20} />
+                <span>Please wait, your movie is being added...</span>
+            </div>,
+            {
+                position: "top-center", // Center the toast
+                autoClose: false, // Don't auto-close
+                closeButton: false, // Hide the close button
+                hideProgressBar: true, // Hide the progress bar
+            }
+        );
 
         const data = new FormData();
         for (let key in formData) {
@@ -55,13 +75,30 @@ function AddMovies() {
                     },
                 }
             );
+
+            toast.dismiss(loadingToastId);  // Dismiss the loading toast
+
             toast.success(response.data.message); // Show success toast
+            // Redirect after success
             setTimeout(() => {
                 navigate("/movies"); // Redirect after success
             }, 2000);
         } catch (error) {
             console.error("Error adding movie:", error.response?.data || error.message);
-            toast.error("An error occurred while adding the movie."); // Show error toast
+
+            toast.dismiss(loadingToastId);// Dismiss the loading toast
+
+            // Show error toast
+            toast.error("An error occurred while adding the movie.",
+                {
+                    position: "top-center",
+                    autoClose: 2000,
+                }
+            );
+
+        } finally {
+            // Re-enable the submit button and hide loading state
+            setIsLoading(false);
         }
     };
 
@@ -88,7 +125,7 @@ function AddMovies() {
                 Back
             </button>
             <h1 className="add-movie-title" style={{ color: "#2663EB" }}>Add a New Movie</h1>
-            <ToastContainer position="top-right" autoClose={1000} />
+            <ToastContainer autoClose={1000} />
             <form onSubmit={handleSubmit} className="add-movie-form">
                 <input
                     type="text"
@@ -97,6 +134,7 @@ function AddMovies() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
                 <input
                     type="number"
@@ -105,6 +143,7 @@ function AddMovies() {
                     value={formData.release_year}
                     onChange={handleInputChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
                 <input
                     type="text"
@@ -113,6 +152,7 @@ function AddMovies() {
                     value={formData.director}
                     onChange={handleInputChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
                 <input
                     type="text"
@@ -121,6 +161,7 @@ function AddMovies() {
                     value={formData.casts}
                     onChange={handleInputChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
                 <input
                     type="text"
@@ -129,6 +170,7 @@ function AddMovies() {
                     value={formData.genre}
                     onChange={handleInputChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
                 <textarea
                     name="description"
@@ -136,6 +178,7 @@ function AddMovies() {
                     value={formData.description}
                     onChange={handleInputChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
                 <input
                     type="file"
@@ -143,6 +186,7 @@ function AddMovies() {
                     accept="image/*"
                     onChange={handleFileChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
                 <input
                     type="url"
@@ -151,6 +195,7 @@ function AddMovies() {
                     value={formData.trailer_video}
                     onChange={handleInputChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
                 <input
                     type="number"
@@ -159,8 +204,17 @@ function AddMovies() {
                     value={formData.rating}
                     onChange={handleInputChange}
                     required
+                    disabled={isLoading} // Disable input while loading
                 />
-                <button type="submit" className="submit-btn">Add Movie</button>
+
+                <button
+                    type="submit"
+                    className="submit-btn"
+                    disabled={isLoading}
+                >
+                    {isLoading ? "Adding Movie..." : "Add Movie"}
+
+                </button>
             </form>
         </div>
     );

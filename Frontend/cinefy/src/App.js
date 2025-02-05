@@ -48,7 +48,7 @@ function App() {
             element={<ProtectedRoute element={<EditMoviePage />} />}
           />
         </Routes>
-        <ToastContainer />
+        <ToastContainer position="top-center" />
       </div>
     </Router>
   );
