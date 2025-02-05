@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/ProfilePage.css"; // Add your custom styles
 import API_BASE_URL from './config'
+import Loader from "./loader"
+
 
 function ProfilePage() {
   const [user, setUser] = useState(null); // State to store user details
@@ -55,7 +57,7 @@ function ProfilePage() {
   if (loading) {
     return (
       <div className="profile-loading">
-        <p>Loading user details...</p>
+        <p><Loader size={20} /> Loading user details...</p>
       </div>
     );
   }

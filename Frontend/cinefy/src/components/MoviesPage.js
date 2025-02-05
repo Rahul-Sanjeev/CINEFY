@@ -34,7 +34,7 @@ function MoviesPage() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
-                <div className="text-xl text-gray-700"><Loader size={40} color="#36D7B7" />Loading Movies...</div>
+                <div className="text-xl text-gray-700"><Loader size={40} color="#36D7B7" />Loading Movies</div>
             </div>
         );
     }

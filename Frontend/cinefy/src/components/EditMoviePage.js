@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import "../styles/EditMoviePage.css";
 import API_BASE_URL from './config';
+import Loader from "./loader"
+
 
 function EditMoviePage() {
     const { id } = useParams(); // Get the movie ID from the URL
@@ -84,7 +86,7 @@ function EditMoviePage() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <div className="text-xl text-gray-700">Loading Movie Details...</div>
+                <div className="text-xl text-gray-700"><Loader size={20} />Loading Movie Details</div>
             </div>
         );
     }

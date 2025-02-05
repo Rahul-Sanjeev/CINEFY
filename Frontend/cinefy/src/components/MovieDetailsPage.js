@@ -5,6 +5,7 @@ import "../styles/MovieDetailsPage.css";
 import ReviewSection from "./ReviewSection";
 import { FaArrowLeft } from "react-icons/fa";  // Import the arrow icon
 import API_BASE_URL from './config';  // Import API_BASE_URL
+import Loader from "./loader"
 
 
 function MovieDetailsPage() {
@@ -48,7 +49,7 @@ function MovieDetailsPage() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <div className="text-xl text-gray-700">Loading Movie Details...</div>
+                <div className="text-xl text-gray-700"><Loader size={20} /> Loading Movie Details</div>
             </div>
         );
     }
