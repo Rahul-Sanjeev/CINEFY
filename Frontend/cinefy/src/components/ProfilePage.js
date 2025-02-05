@@ -56,8 +56,8 @@ function ProfilePage() {
   // Show loading message while fetching data
   if (loading) {
     return (
-      <div className="profile-loading">
-        <p><Loader size={20} color="#36D7B7" /> Loading user details...</p>
+      <div className="profile-loading min-h-screen">
+        <p><Loader size={40} color="#36D7B7" /> Loading user details</p>
       </div>
     );
   }
