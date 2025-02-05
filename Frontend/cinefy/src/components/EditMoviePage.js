@@ -86,7 +86,7 @@ function EditMoviePage() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <div className="text-xl text-gray-700"><Loader size={20} />Loading Movie Details</div>
+                <div className="text-xl text-gray-700"><Loader size={20} color="#36D7B7" />Loading Movie Details</div>
             </div>
         );
     }

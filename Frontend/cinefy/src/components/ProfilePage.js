@@ -57,7 +57,7 @@ function ProfilePage() {
   if (loading) {
     return (
       <div className="profile-loading">
-        <p><Loader size={20} /> Loading user details...</p>
+        <p><Loader size={20} color="#36D7B7" /> Loading user details...</p>
       </div>
     );
   }

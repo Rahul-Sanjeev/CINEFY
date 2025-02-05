@@ -169,7 +169,7 @@ const Login = () => {
                     disabled={isSubmitting}
                     className={isSubmitting ? "loading" : ""}
                 >
-                    {isSubmitting ? <Loader size={20} /> : "Login"}
+                    {isSubmitting ? <Loader size={20} color="#36D7B7" /> : "Login"}
                 </button>
 
                 {errors.password && (

@@ -44,7 +44,7 @@ function AddMovies() {
         // Show the loading toast
         const loadingToastId = toast.info(
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <ClipLoader color="#2663EB" size={20} />
+                <ClipLoader color="#36D7B7" size={20} />
                 <span>Please wait, your movie is being added...</span>
             </div>,
             {
